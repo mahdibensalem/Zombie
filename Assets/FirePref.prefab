@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509a20c9d19ccbc4e8d1b30852315607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutoDestroyTime: 1
-  RigidBody: {fileID: 5720131266675317761}
+  AutoDestroyTime: 0.5
+  RigidBody: {fileID: 0}
   Speed: 80
+  Damage: 1

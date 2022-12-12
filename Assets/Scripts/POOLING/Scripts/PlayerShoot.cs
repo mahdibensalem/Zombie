@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
@@ -8,11 +7,12 @@ public class PlayerShoot : MonoBehaviour
     private ObjectPool BulletPool;
 
 
-   public float spawnTimer;
+    public float spawnTimer;
     float _spawnTimer;
+    bool findTarget;
     private void Awake()
     {
-        BulletPool = ObjectPool.CreateInstance(BulletPrefab,maxBullet);
+        BulletPool = ObjectPool.CreateInstance(BulletPrefab, maxBullet);
     }
 
     private void Start()
@@ -23,24 +23,31 @@ public class PlayerShoot : MonoBehaviour
     }
     private void Update()
     {
-        _spawnTimer += Time.deltaTime;
-        if (_spawnTimer >= spawnTimer)
+        if (findTarget)
         {
-            Fire();
+            _spawnTimer += Time.deltaTime;
+            if (_spawnTimer >= spawnTimer)
+            {
+                Fire();
+            }
         }
     }
     private void Fire()
     {
         _spawnTimer = 0;
+
+
         PoolableObject instance = BulletPool.GetObject();
-            
-            if (instance != null)
-            {
-                //instance.transform.SetParent(transform, false);
-                instance.transform.position = transform.position;
-                instance.transform.localRotation = Quaternion.LookRotation(gameObject.transform.forward);
-                instance.gameObject.SetActive(true);
-            }
+
+        if (instance != null)
+        {
+
+            //instance.transform.SetParent(transform, false);
+            instance.transform.position = transform.position;
+            instance.transform.localRotation = Quaternion.LookRotation(gameObject.transform.forward);
+            instance.gameObject.SetActive(true);
+
         }
     }
+}
 

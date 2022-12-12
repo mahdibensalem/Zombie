@@ -1,11 +1,16 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Bullet : AutoDestroyPoolableObject
+public class Bullet : PoolableObject
 {
+    public float AutoDestroyTime = 5f;
     public Rigidbody RigidBody;
     public float Speed = 80f;
+    public int Damage = 1;
+    protected Transform Target;
 
+
+    protected const string DISABLE_METHOD_NAME = "Disable";
     private void Awake()
     {
         RigidBody = GetComponent<Rigidbody>();
@@ -14,26 +19,32 @@ public class Bullet : AutoDestroyPoolableObject
     {
         transform.localPosition += transform.forward * Speed * Time.deltaTime;
     }
-    public override void OnEnable()
+
+    protected virtual void OnEnable()
     {
 
-        base.OnEnable();
-
-        //transform.rotation = Quaternion.LookRotation(RigidBody.velocity);
-        //
+        CancelInvoke(DISABLE_METHOD_NAME);
+        Invoke(DISABLE_METHOD_NAME, AutoDestroyTime);
     }
-    private void OnTriggerEnter(Collider other)
+    public virtual void Spawn(Vector3 Forward, int Damage, Transform Target)
     {
-        if (other.CompareTag("enemy"))
+        this.Damage = Damage;
+        this.Target = Target;
+    }
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        IDamageable damageable;
+        if (other.TryGetComponent<IDamageable>(out damageable))
         {
-            gameObject.SetActive(false);
-            other.GetComponent<Enemy>().Health--;
+            damageable.TakeDamage(Damage);
+            Disable();
         }
     }
-    public override void OnDisable()
-    {
-        base.OnDisable();
 
-        RigidBody.velocity = Vector2.zero;
+    protected void Disable()
+    {
+        CancelInvoke(DISABLE_METHOD_NAME);
+        RigidBody.velocity = Vector3.zero;
+        gameObject.SetActive(false);
     }
 }

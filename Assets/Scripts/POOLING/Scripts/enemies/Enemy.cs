@@ -1,26 +1,39 @@
 ﻿using UnityEngine.AI;
+using System.Collections;
 using UnityEngine;
-public class Enemy : PoolableObject
+public class Enemy : PoolableObject, IDamageable
 {
     public EnemyMovement Movement;
     public NavMeshAgent Agent;
     public int Health;
     private void Awake()
     {
-        Health = 1;
     }
     public override void OnDisable()
     {
         base.OnDisable();
-        Health = 1;
+
         Agent.enabled = false;
     }
-    private void LateUpdate()
+
+
+    /// ********************  IDamageable
+    private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    }
+
+    public void TakeDamage(int Damage)
+    {
+        Health -= Damage;
+
         if (Health <= 0)
         {
             gameObject.SetActive(false);
         }
-
+    }
+    public Transform GetTransform()
+    {
+        return transform;
     }
 }

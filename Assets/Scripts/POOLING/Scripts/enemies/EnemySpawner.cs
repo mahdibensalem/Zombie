@@ -11,7 +11,7 @@ public class EnemySpawner : MonoBehaviour
     public List<Enemy> EnemyPrefabs = new List<Enemy>();
     public SpawnMethod EnemySpawnMethod = SpawnMethod.RoundRobin;
 
-    private NavMeshTriangulation Triangulation;
+   [SerializeField] private NavMeshTriangulation Triangulation;
    [SerializeField] private Dictionary<int, ObjectPool> EnemyObjectPools = new Dictionary<int, ObjectPool>();
 
 
@@ -45,17 +45,18 @@ public class EnemySpawner : MonoBehaviour
         
         while (!win)
         {
-            //if (EnemySpawnMethod == SpawnMethod.RoundRobin)
-            //{
-            //    SpawnRoundRobinEnemy(SpawnedEnemies);
-            //}
-            //else if (EnemySpawnMethod == SpawnMethod.Random)
-            //{
-            //    SpawnRandomEnemy();
-            //}
+            if (EnemySpawnMethod == SpawnMethod.RoundRobin)
+            {
+                SpawnRoundRobinEnemy(SpawnedEnemies);
+            }
+            else if (EnemySpawnMethod == SpawnMethod.Random)
+            {
+                SpawnRandomEnemy();
+            }
 
             SpawnRandomEnemy();
             SpawnedEnemies++;
+
             yield return Wait;
         }
     }
