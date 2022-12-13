@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
-public class CarMouvment : MonoBehaviour
+public class CarMouvment : MonoBehaviour, IDamageable
 {
   [SerializeField]  FloatingJoystick joystick;
 
@@ -29,7 +30,10 @@ public class CarMouvment : MonoBehaviour
     {
 
     }
-
+    public Transform GetTransform()
+    {
+        return transform;
+    }
 
     // Update is called once per frame
     void FixedUpdate()

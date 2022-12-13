@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public class AttackRadius : MonoBehaviour
+public class BulletAttackRadius : MonoBehaviour
 {
     public float viewRadius;
     [Range(0, 360)]
@@ -134,7 +134,7 @@ public class AttackRadius : MonoBehaviour
                     bullet.transform.localRotation = Quaternion.LookRotation(-closestDamageable.GetTransform().forward);
                     bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
                 }
-                //OnAttack?.Invoke(closestDamageable);
+                OnAttack?.Invoke(closestDamageable);
                 //closestDamageable.TakeDamage(Damage);
             }
 
@@ -174,9 +174,11 @@ public class AttackRadius : MonoBehaviour
                 }
                 else
                 {
+                    if(AttackCoroutine!=null)
                     StopCoroutine(AttackCoroutine);
                     AttackCoroutine = null;
-                    return; }
+                    return;
+                }
             }
             
         }

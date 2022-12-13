@@ -4826,7 +4826,7 @@ GameObject:
   - component: {fileID: 774353183}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4859,8 +4859,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.1740823, y: 4.409099, z: 7.3441195}
-  m_Center: {x: 0.0022420883, y: 1.5411035, z: -0.43854618}
+  m_Size: {x: 4.1740823, y: 4.409099, z: 6.2603292}
+  m_Center: {x: 0.0022420883, y: 1.5411036, z: -0.98044145}
 --- !u!54 &774353184
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4875,7 +4875,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &774353185
 MonoBehaviour:
@@ -10306,8 +10306,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1646720075}
   - component: {fileID: 1646720078}
-  - component: {fileID: 1646720079}
   - component: {fileID: 1646720080}
+  - component: {fileID: 1646720081}
   m_Layer: 0
   m_Name: fire
   m_TagString: Untagged
@@ -10323,7 +10323,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646720074}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.75, z: 2}
+  m_LocalPosition: {x: 0, y: 1.05, z: 2.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10343,33 +10343,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 30
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1646720079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646720074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac1e762c014f23940baf5fe7e70ae45c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewRadius: 30
-  viewAngle: 150
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 128
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 64
-  visibleTargets: []
-  BulletPrefab: {fileID: -4263596712543256324, guid: 51294970d20a9024d9ae3c4c96ceed90,
-    type: 3}
-  maxBullet: 5
-  Collider: {fileID: 0}
-  Damage: 4
-  AttackDelay: 0.3
 --- !u!54 &1646720080
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10386,6 +10359,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &1646720081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646720074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5689c45cbc28c6f4fbec736315ffeb8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 30
+  viewAngle: 180
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 128
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 64
+  visibleTargets: []
+  BulletPrefab: {fileID: 1168849960255597161, guid: da95e19265898f04e9b274c26c6b572a,
+    type: 3}
+  maxBullet: 10
+  Collider: {fileID: 0}
+  Damage: 1
+  AttackDelay: 0.2
 --- !u!4 &1648338493 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a509d7d4fd5986747a60f457c7a741dd,

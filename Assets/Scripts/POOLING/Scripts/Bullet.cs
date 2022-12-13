@@ -30,12 +30,13 @@ public class Bullet : PoolableObject
     {
         this.Damage = Damage;
         this.Target = Target;
+        RigidBody.AddForce(Forward * Speed, ForceMode.VelocityChange);
     }
     protected virtual void OnTriggerEnter(Collider other)
     {
         IDamageable damageable;
         if (other.TryGetComponent<IDamageable>(out damageable))
-        {
+        {   if (other.CompareTag("Player")) return;
             damageable.TakeDamage(Damage);
             Disable();
         }
