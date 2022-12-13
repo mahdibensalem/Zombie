@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 5720131266675317761}
   - component: {fileID: 7424005266173424175}
   - component: {fileID: 8876289145797765624}
-  - component: {fileID: 1168849960255597161}
   m_Layer: 0
   m_Name: FirePref
   m_TagString: Untagged
@@ -110,12 +109,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8442791246395015444}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a7f17a434d6e794a9310c6e523f18ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutoDestroyTime: 2
+  AutoDestroyTime: 1
   RigidBody: {fileID: 5720131266675317761}
   Speed: 5
   Damage: 1
@@ -180,23 +179,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 1.0252297
-  m_Height: 0.99999994
+  m_Radius: 1
+  m_Height: 1.5
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1168849960255597161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8442791246395015444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 509a20c9d19ccbc4e8d1b30852315607, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AutoDestroyTime: 5
-  RigidBody: {fileID: 0}
-  Speed: 80
-  Damage: 1

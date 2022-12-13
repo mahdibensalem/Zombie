@@ -22,6 +22,7 @@ public class Enemy : PoolableObject, IDamageable
 
         if (LookCoroutine != null)
         {
+            
             StopCoroutine(LookCoroutine);
         }
 
@@ -39,6 +40,7 @@ public class Enemy : PoolableObject, IDamageable
 
             time += Time.deltaTime * 2;
             yield return null;
+            Debug.Log("lookat");
         }
 
         transform.rotation = lookRotation;

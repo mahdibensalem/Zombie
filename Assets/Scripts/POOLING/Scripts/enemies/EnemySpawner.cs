@@ -18,16 +18,14 @@ public class EnemySpawner : MonoBehaviour
 
 
     public bool win = false;
-    private void Awake()
+
+
+    private void Start()
     {
         for (int i = 0; i < EnemyPrefabs.Count; i++)
         {
             EnemyObjectPools.Add(i, ObjectPool.CreateInstance(EnemyPrefabs[i], NumberOfEnemiesToSpawn));
         }
-    }
-
-    private void Start()
-    {
         Triangulation = NavMesh.CalculateTriangulation();
         for (int j = 0; j < 10; j++)
         {

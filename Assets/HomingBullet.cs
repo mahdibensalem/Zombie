@@ -32,7 +32,6 @@ public class HomingBullet : Bullet
         Vector3 HorizontalNoiseVector = Vector3.Cross(BulletDirectionVector, Vector3.up).normalized;
         float NoisePosition = 0;
         float time = 0;
-
         while (time < 1)
         {
             NoisePosition = NoiseCurve.Evaluate(time);
@@ -44,6 +43,6 @@ public class HomingBullet : Bullet
             yield return null;
         }
         
-        Disable();
+        //Disable();
     }
 }
