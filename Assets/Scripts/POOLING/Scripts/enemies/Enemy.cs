@@ -32,13 +32,13 @@ public class Enemy : PoolableObject, IDamageable
     private IEnumerator LookAt(Transform Target)
     {
         Quaternion lookRotation = Quaternion.LookRotation(Target.position - transform.position);
-        float time = 0;
+        float time = 1;
 
-        while (time < 1)
+        while (true)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, time);
 
-            time += Time.deltaTime * 2;
+            //time += Time.deltaTime*4 ;
             yield return null;
             Debug.Log("lookat");
         }

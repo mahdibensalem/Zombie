@@ -42,7 +42,7 @@ public class HomingBullet : Bullet
             Debug.Log("Find Target");
             yield return null;
         }
-        
+        transform.position = Target.position;
         //Disable();
     }
 }

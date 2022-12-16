@@ -8,7 +8,7 @@ public class AttackRadius : MonoBehaviour
     public SphereCollider Collider;
     
     public List<IDamageable> Damageables = new List<IDamageable>();
-    public int Damage = 10;
+    public int Damage = 1;
     public float AttackDelay = 0.5f;
     public delegate void AttackEvent(IDamageable Target);
     public AttackEvent OnAttack;
@@ -22,6 +22,7 @@ public class AttackRadius : MonoBehaviour
     protected virtual void OnTriggerEnter(Collider other)
     {
         IDamageable damageable = other.GetComponent<IDamageable>();
+        
         if (damageable != null)
         {
             Damageables.Add(damageable);

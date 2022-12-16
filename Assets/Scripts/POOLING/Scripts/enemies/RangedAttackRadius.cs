@@ -14,12 +14,16 @@ public class RangedAttackRadius : AttackRadius
     private RaycastHit Hit;
     private IDamageable targetDamageable;
     private Bullet bullet;
+    private void Start()
+    {
+        CreateBulletPool();
+    }
 
     public void CreateBulletPool()
     {
         if (BulletPool == null)
         {
-            BulletPool = ObjectPool.CreateInstance(BulletPrefab, Mathf.CeilToInt((1 / AttackDelay) * BulletPrefab.AutoDestroyTime));
+            BulletPool = ObjectPool.CreateInstance(transform, BulletPrefab, Mathf.CeilToInt((1 / AttackDelay) * BulletPrefab.AutoDestroyTime));
         }
     }
 
@@ -33,40 +37,48 @@ public class RangedAttackRadius : AttackRadius
         {
             for (int i = 0; i < Damageables.Count; i++)
             {
-                if (HasLineOfSightTo(Damageables[i].GetTransform()))
+                Debug.Log("Damageables.Count" + Damageables.Count);
+                if (HasLineOfSightTo(Damageables[0].GetTransform()))
                 {
-                    targetDamageable = Damageables[i];
-                    OnAttack?.Invoke(Damageables[i]);
-                    Agent.enabled = false;
+
+                    targetDamageable = Damageables[0];
+                    OnAttack?.Invoke(Damageables[0]);
+                    Agent.speed = 0;
+
                     break;
                 }
             }
 
-            if (targetDamageable != null)
+            if (Damageables!= null)
             {
+                Debug.Log("Damageables.Count!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + Damageables[0].GetTransform().gameObject.name);
                 PoolableObject poolableObject = BulletPool.GetObject();
                 if (poolableObject != null)
                 {
                     bullet = poolableObject.GetComponent<Bullet>();
 
-                    bullet.transform.position = transform.position + BulletSpawnOffset;
+                    bullet.transform.position = transform.position ;
                     bullet.transform.rotation = Agent.transform.rotation;
+                    //bullet.transform.localRotation = Quaternion.LookRotation(-targetDamageable.GetTransform().forward);
 
-                    bullet.Spawn(Agent.transform.forward, Damage, targetDamageable.GetTransform());
+                    //bullet.Spawn(Agent.transform.forward, Damage, targetDamageable.GetTransform());
                 }
             }
             else
             {
-                Agent.enabled = true; // no target in line of sight, keep trying to get closer
+                Agent.speed = 8; // no target in line of sight, keep trying to get closer
+                targetDamageable = null;
+                
             }
 
             yield return Wait;
 
             if (targetDamageable == null || !HasLineOfSightTo(targetDamageable.GetTransform()))
             {
-                Agent.enabled = true;
+                Agent.speed = 8;
+                
             }
-
+            Debug.Log("(Agent.hasPath" + Agent.hasPath);
             Damageables.RemoveAll(DisabledDamageables);
         }
 
@@ -76,7 +88,9 @@ public class RangedAttackRadius : AttackRadius
 
     private bool HasLineOfSightTo(Transform Target)
     {
-        if (Physics.SphereCast(transform.position + BulletSpawnOffset, SpherecastRadius, ((Target.position + BulletSpawnOffset) - (transform.position + BulletSpawnOffset)).normalized, out Hit, Collider.radius, Mask))
+        //Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, 60, targetMask);
+        //if (targetsInViewRadius.Length > 0)
+        if (Physics.SphereCast(transform.position , .1f, ((Target.position ) - (transform.position )).normalized, out Hit, 100, Mask))
         {
             IDamageable damageable;
             if (Hit.collider.TryGetComponent<IDamageable>(out damageable))
@@ -94,7 +108,7 @@ public class RangedAttackRadius : AttackRadius
 
         if (AttackCoroutine == null)
         {
-            Agent.enabled = true;
+            Agent.speed = 8;
         }
     }
 }

@@ -32,7 +32,7 @@ public class BulletAttackRadius : MonoBehaviour
     protected virtual void Awake()
     {
         Collider = GetComponent<SphereCollider>();
-        BulletPool = ObjectPool.CreateInstance(BulletPrefab, maxBullet);
+        BulletPool = ObjectPool.CreateInstance(transform,BulletPrefab, maxBullet);
 
     }
     //void Start()

@@ -17,7 +17,7 @@ public class Bullet : PoolableObject
     }
     private void Update()
     {
-        transform.localPosition += transform.forward * Speed * Time.deltaTime;
+        transform.position += transform.forward * Speed * Time.deltaTime;
     }
 
     protected virtual void OnEnable()
@@ -30,7 +30,7 @@ public class Bullet : PoolableObject
     {
         this.Damage = Damage;
         this.Target = Target;
-        RigidBody.AddForce(Forward * Speed, ForceMode.VelocityChange);
+        //RigidBody.AddForce(Forward * Speed, ForceMode.VelocityChange);
     }
     protected virtual void OnTriggerEnter(Collider other)
     {

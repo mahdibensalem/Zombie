@@ -41,7 +41,7 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    private IEnumerator FollowTarget()
+    public IEnumerator FollowTarget()
     {
         WaitForSeconds Wait = new WaitForSeconds(UpdateRate);
 

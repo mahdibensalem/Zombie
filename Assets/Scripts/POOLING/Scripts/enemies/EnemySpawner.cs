@@ -24,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < EnemyPrefabs.Count; i++)
         {
-            EnemyObjectPools.Add(i, ObjectPool.CreateInstance(EnemyPrefabs[i], NumberOfEnemiesToSpawn));
+            EnemyObjectPools.Add(i, ObjectPool.CreateInstance(transform,EnemyPrefabs[i], NumberOfEnemiesToSpawn));
         }
         Triangulation = NavMesh.CalculateTriangulation();
         for (int j = 0; j < 10; j++)

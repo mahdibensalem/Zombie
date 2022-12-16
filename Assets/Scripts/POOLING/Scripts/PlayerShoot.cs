@@ -12,7 +12,7 @@ public class PlayerShoot : MonoBehaviour
     bool findTarget;
     private void Awake()
     {
-        BulletPool = ObjectPool.CreateInstance(BulletPrefab, maxBullet);
+        BulletPool = ObjectPool.CreateInstance(transform, BulletPrefab, maxBullet);
     }
 
     private void Start()

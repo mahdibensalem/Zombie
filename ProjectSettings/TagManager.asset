@@ -9,15 +9,15 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - enemy
+  - 
   - Water
   - UI
   - obstacle
   - enemy
   - Player
-  - 
-  - 
-  - 
+  - Plane
+  - EnemyBullet
+  - EnemyRange
   - 
   - 
   - 
