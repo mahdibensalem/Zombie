@@ -9,9 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 615b6a5073a39624eb0ccb63a40098ee, type: 3}
-  m_Name: Enemy 1
+  m_Script: {fileID: 11500000, guid: ba73e01a6fda4aa41b9cc8f0ac714186, type: 3}
+  m_Name: Basic_Attack_Config
   m_EditorClassIdentifier: 
-  health: 1
+  IsRanged: 0
   Damage: 1
-  AttackRadius: 10
+  AttackRadius: 3.5
+  AttackDelay: 2
+  BulletPrefab: {fileID: 0}
+  BulletSpawnOffset: {x: 0, y: 1, z: 0}
+  LineOfSightLayers:
+    serializedVersion: 2
+    m_Bits: 0

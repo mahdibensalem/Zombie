@@ -9,7 +9,7 @@ public class AttackRadius : MonoBehaviour
     
     public List<IDamageable> Damageables = new List<IDamageable>();
     public int Damage = 1;
-    public float AttackDelay = 0.5f;
+    public float AttackDelay ;
     public delegate void AttackEvent(IDamageable Target);
     public AttackEvent OnAttack;
     protected Coroutine AttackCoroutine;
@@ -22,15 +22,17 @@ public class AttackRadius : MonoBehaviour
     protected virtual void OnTriggerEnter(Collider other)
     {
         IDamageable damageable = other.GetComponent<IDamageable>();
-        
         if (damageable != null)
         {
-            Damageables.Add(damageable);
 
+            Damageables.Add(damageable);
+            AttackCoroutine = null;
             if (AttackCoroutine == null)
             {
+
                 AttackCoroutine = StartCoroutine(Attack());
             }
+
         }
     }
 
@@ -43,9 +45,11 @@ public class AttackRadius : MonoBehaviour
             if (Damageables.Count == 0)
             {
                 StopCoroutine(AttackCoroutine);
-                AttackCoroutine = null;
+                
             }
         }
+        AttackCoroutine = null;
+        Damageables.Clear();
     }
 
     protected virtual IEnumerator Attack()
