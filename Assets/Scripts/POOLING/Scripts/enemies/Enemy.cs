@@ -6,9 +6,9 @@ public class Enemy : PoolableObject, IDamageable
     public EnemyMovement Movement;
     public AttackRadius AttackRadius;
     public NavMeshAgent Agent;
-    public EnemyScriptableObject EnemyScriptableObject;
-    [SerializeField] int Health;
-
+    public int Health;
+    public float xp;
+    float attackDelay;
 
     private Coroutine LookCoroutine;
     private const string ATTACK_TRIGGER = "Attack";
@@ -32,13 +32,13 @@ public class Enemy : PoolableObject, IDamageable
     private IEnumerator LookAt(Transform Target)
     {
         Quaternion lookRotation = Quaternion.LookRotation(Target.position - transform.position);
-        float time = 1;
+        float time = 0;
 
-        while (true)
+        while (time<attackDelay)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, time);
 
-            //time += Time.deltaTime*4 ;
+            time += Time.deltaTime*2 ;
             yield return null;
             Debug.Log("lookat");
         }
@@ -47,15 +47,10 @@ public class Enemy : PoolableObject, IDamageable
     }
 
 
-    public virtual void OnEnable()
-    {
-        SetUpAgentConfiguration();
-    }
 
     public override void OnDisable()
     {
         base.OnDisable();
-
         Agent.enabled = false;
     }
 
@@ -73,12 +68,10 @@ public class Enemy : PoolableObject, IDamageable
         if (Health <= 0)
         {
             gameObject.SetActive(false);
+            progressLVL.Instance.OnFillProgressXP(xp);
         }
     }
-    public virtual void SetUpAgentConfiguration()
-    {
-        Health = EnemyScriptableObject.health;
-    }
+
     public Transform GetTransform()
     {
         return transform;

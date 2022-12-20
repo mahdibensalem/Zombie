@@ -9,22 +9,22 @@ public class progressLVL : MonoBehaviour
     public Image progressLvl;
     public Image progressXP;
     public TextMeshProUGUI XpTXT;
-
+    public int MaxXP;
     private void Awake()
     {
         Instance = this;
         XpTXT.text = "0";
     }
-    public void OnFillProgressLVL()
+    public void OnFillProgressLVL(int xp)
     {
-        progressLvl.fillAmount += 0.01f;
+        progressLvl.fillAmount += xp;
         
     }
     public void OnFillProgressXP(float amount)
     {
         if (progressXP.fillAmount < 1)
         {
-            progressXP.fillAmount += amount;
+            progressXP.fillAmount += amount/ MaxXP;
         }
         else
         {

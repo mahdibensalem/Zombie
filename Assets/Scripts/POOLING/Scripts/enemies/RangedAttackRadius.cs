@@ -32,19 +32,19 @@ public class RangedAttackRadius : AttackRadius
         WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
 
         yield return Wait;
+        Debug.Log("Damageables.Count" + Damageables.Count);
 
         while (Damageables.Count > 0)
         {
             for (int i = 0; i < Damageables.Count; i++)
             {
-                Debug.Log("Damageables.Count" + Damageables.Count);
                 if (HasLineOfSightTo(Damageables[0].GetTransform()))
                 {
 
                     targetDamageable = Damageables[0];
                     OnAttack?.Invoke(Damageables[0]);
                     Agent.speed = 0;
-
+                    
                     break;
                 }
             }
@@ -92,6 +92,8 @@ public class RangedAttackRadius : AttackRadius
         //if (targetsInViewRadius.Length > 0)
         if (Physics.SphereCast(transform.position , .1f, ((Target.position ) - (transform.position )).normalized, out Hit, 100, Mask))
         {
+
+
             IDamageable damageable;
             if (Hit.collider.TryGetComponent<IDamageable>(out damageable))
             {
@@ -105,10 +107,12 @@ public class RangedAttackRadius : AttackRadius
     protected override void OnTriggerExit(Collider other)
     {
         base.OnTriggerExit(other);
-
         if (AttackCoroutine == null)
         {
             Agent.speed = 8;
+
         }
+
+
     }
 }
