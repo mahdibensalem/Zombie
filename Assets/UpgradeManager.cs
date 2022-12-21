@@ -21,11 +21,6 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    //void Start()
-    //{
-    //    //_UpgradeButtons.Remove(_UpgradeButtons[0]);
-    //    GetUpdgrade();
-    //}
     //void GetUpdgrade()
     //{
 

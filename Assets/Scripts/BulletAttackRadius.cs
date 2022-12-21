@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class BulletAttackRadius : MonoBehaviour
 {
+    public static BulletAttackRadius Instance;
     public float viewRadius;
     [Range(0, 360)]
     public float viewAngle;
@@ -35,10 +36,10 @@ public class BulletAttackRadius : MonoBehaviour
         BulletPool = ObjectPool.CreateInstance(transform,BulletPrefab, maxBullet);
 
     }
-    //void Start()
-    //{
-    //    StartCoroutine("FindTargetsWithDelay", .2f);
-    //}
+    void Start()
+    {
+        Instance = this;
+    }
 
     IEnumerator FindTargetsWithDelay(float delay)
     {

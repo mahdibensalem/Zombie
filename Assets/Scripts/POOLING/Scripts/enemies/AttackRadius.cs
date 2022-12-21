@@ -6,10 +6,10 @@ using UnityEngine;
 public class AttackRadius : MonoBehaviour
 {
     public SphereCollider Collider;
-    
+
     public List<IDamageable> Damageables = new List<IDamageable>();
     public int Damage = 1;
-    public float AttackDelay ;
+    public float AttackDelay;
     public delegate void AttackEvent(IDamageable Target);
     public AttackEvent OnAttack;
     protected Coroutine AttackCoroutine;
@@ -45,7 +45,6 @@ public class AttackRadius : MonoBehaviour
             if (Damageables.Count == 0)
             {
                 StopCoroutine(AttackCoroutine);
-                
             }
         }
         AttackCoroutine = null;
@@ -92,7 +91,7 @@ public class AttackRadius : MonoBehaviour
         AttackCoroutine = null;
     }
 
-    protected  bool DisabledDamageables(IDamageable Damageable)
+    protected bool DisabledDamageables(IDamageable Damageable)
     {
         return Damageable != null && !Damageable.GetTransform().gameObject.activeSelf;
     }

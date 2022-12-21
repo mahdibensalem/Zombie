@@ -33,6 +33,7 @@ public class EnemySpawner : MonoBehaviour
             SpawnRandomEnemy();
 
         }
+
         StartCoroutine(SpawnEnemies());
     }
 
@@ -81,29 +82,21 @@ public class EnemySpawner : MonoBehaviour
         {
             Enemy enemy = poolableObject.GetComponent<Enemy>();
             Enemies[SpawnIndex].SetupEnemy(enemy);
-            //to check every triangulations vertices on navmesh
             for (int j =0; j < Triangulation.vertices.Length; j++)
             {
-                //check if distance between vertices and car position <  range
                 if(Vector3.Distance(Triangulation.vertices[j],transform.position)<MaxRange)
                 {
-                    //Debug.Log("Triangulation.vertices[j]"+Triangulation.vertices[j]);
-                    //make list of Vector3 named ValidTriangulation and add ranged position 
                     ValidTriangulation.Add(Triangulation.vertices[j]);
                     i++;
                 }
             }
-
-
             int VertexIndex = Random.Range(0, ( ValidTriangulation.Count));
             Debug.Log(("Triangulation.vertices.Length :") + Triangulation.vertices.Length); ///=5720
             Debug.Log(("ValidTriangulation.Count :") + ValidTriangulation.Count); 
-
             //Vector3 randomPoint = transform.position + (Random.insideUnitSphere * MaxRange);
-            
             NavMeshHit Hit;
             if (NavMesh.SamplePosition(ValidTriangulation[VertexIndex], out Hit, 0, 1))
-                //if (NavMesh.SamplePosition(randomPoint , out Hit, MaxRange, 1))
+            //if (NavMesh.SamplePosition(randomPoint , out Hit, MaxRange, 1))
             {
                 enemy.Agent.Warp(Hit.position);
                 // enemy needs to get enabled and start chasing now.

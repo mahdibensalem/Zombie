@@ -6,7 +6,7 @@ public class ButtonScriptableObject : ScriptableObject
     public List<Sprite> images;
     public string description;
     public actionMethode action;
-    public float addedValue;
+    public int addedValue;
     public enum actionMethode
     {
         addDamage,

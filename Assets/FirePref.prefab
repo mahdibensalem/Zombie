@@ -116,7 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutoDestroyTime: 1
   RigidBody: {fileID: 5720131266675317761}
-  Speed: 5
+  Speed: 0.5
   Damage: 1
   PositionCurve:
     serializedVersion: 2
