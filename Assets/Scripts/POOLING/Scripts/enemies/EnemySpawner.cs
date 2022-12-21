@@ -12,9 +12,10 @@ public class EnemySpawner : MonoBehaviour
     public SpawnMethod EnemySpawnMethod = SpawnMethod.RoundRobin;
 
    [SerializeField] private NavMeshTriangulation Triangulation;
+    [SerializeField] private List<Vector3> ValidTriangulation;
    [SerializeField] private Dictionary<int, ObjectPool> EnemyObjectPools = new Dictionary<int, ObjectPool>();
 
-
+    [SerializeField] float MaxRange;
 
 
     public bool win = false;
@@ -73,16 +74,36 @@ public class EnemySpawner : MonoBehaviour
 
     private void DoSpawnEnemy(int SpawnIndex)
     {
+        int i = 0;
+        ValidTriangulation.Clear();
         PoolableObject poolableObject = EnemyObjectPools[SpawnIndex].GetObject();
         if (poolableObject != null)
         {
             Enemy enemy = poolableObject.GetComponent<Enemy>();
             Enemies[SpawnIndex].SetupEnemy(enemy);
+            //to check every triangulations vertices on navmesh
+            for (int j =0; j < Triangulation.vertices.Length; j++)
+            {
+                //check if distance between vertices and car position <  range
+                if(Vector3.Distance(Triangulation.vertices[j],transform.position)<MaxRange)
+                {
+                    //Debug.Log("Triangulation.vertices[j]"+Triangulation.vertices[j]);
+                    //make list of Vector3 named ValidTriangulation and add ranged position 
+                    ValidTriangulation.Add(Triangulation.vertices[j]);
+                    i++;
+                }
+            }
 
-            int VertexIndex = Random.Range(0, Triangulation.vertices.Length);
 
+            int VertexIndex = Random.Range(0, ( ValidTriangulation.Count));
+            Debug.Log(("Triangulation.vertices.Length :") + Triangulation.vertices.Length); ///=5720
+            Debug.Log(("ValidTriangulation.Count :") + ValidTriangulation.Count); 
+
+            //Vector3 randomPoint = transform.position + (Random.insideUnitSphere * MaxRange);
+            
             NavMeshHit Hit;
-            if (NavMesh.SamplePosition(Triangulation.vertices[VertexIndex], out Hit, 2f, 1))
+            if (NavMesh.SamplePosition(ValidTriangulation[VertexIndex], out Hit, 0, 1))
+                //if (NavMesh.SamplePosition(randomPoint , out Hit, MaxRange, 1))
             {
                 enemy.Agent.Warp(Hit.position);
                 // enemy needs to get enabled and start chasing now.
@@ -92,7 +113,7 @@ public class EnemySpawner : MonoBehaviour
             }
             else
             {
-                Debug.LogError($"Unable to place NavMeshAgent on NavMesh. Tried to use {Triangulation.vertices[VertexIndex]}");
+                //Debug.LogError($"Unable to place NavMeshAgent on NavMesh. Tried to use {Triangulation.vertices[VertexIndex]}");
             }
         }
         else
