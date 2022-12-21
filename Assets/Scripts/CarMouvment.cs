@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CarMouvment : MonoBehaviour, IDamageable
 {
+    public static CarMouvment instance;
   [SerializeField]  FloatingJoystick joystick;
 
     public float MoveSpeed = 50;
@@ -28,7 +29,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
 
     private void Start()
     {
-
+        instance = this;
     }
     public Transform GetTransform()
     {
@@ -81,5 +82,6 @@ public class CarMouvment : MonoBehaviour, IDamageable
     public void TakeDamage( int damage)
     {
         health -= damage;
+        //updateHealth();
     }
 }

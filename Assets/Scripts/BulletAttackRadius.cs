@@ -153,7 +153,7 @@ public class BulletAttackRadius : MonoBehaviour
         Damageables.Clear();
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
 
-        Debug.Log("targetsInViewRadius" + targetsInViewRadius.Length);
+
         for (int i = 0; i < targetsInViewRadius.Length; i++) 
         {
             IDamageable damageable = targetsInViewRadius[i].GetComponent<IDamageable>();

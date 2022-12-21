@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 615b6a5073a39624eb0ccb63a40098ee, type: 3}
-  m_Name: Enemy 1
+  m_Name: Ranged enemy
   m_EditorClassIdentifier: 
   Prefab: {fileID: 531249054535887867, guid: b73fad8830bd48f4f911df774204445e, type: 3}
   health: 1
