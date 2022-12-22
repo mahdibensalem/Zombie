@@ -32,7 +32,7 @@ public class RangedAttackRadius : AttackRadius
         WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
 
         yield return Wait;
-        Debug.Log("Damageables.Count" + Damageables.Count);
+        //Debug.Log("Damageables.Count" + Damageables.Count);
 
         while (Damageables.Count > 0)
         {
@@ -51,7 +51,7 @@ public class RangedAttackRadius : AttackRadius
 
             if (Damageables!= null)
             {
-                Debug.Log("Damageables.Count!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + Damageables[0].GetTransform().gameObject.name);
+                //Debug.Log("Damageables.Count!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + Damageables[0].GetTransform().gameObject.name);
                 PoolableObject poolableObject = BulletPool.GetObject();
                 if (poolableObject != null)
                 {
@@ -78,7 +78,6 @@ public class RangedAttackRadius : AttackRadius
                 Agent.speed = 8;
                 
             }
-            Debug.Log("(Agent.hasPath" + Agent.hasPath);
             Damageables.RemoveAll(DisabledDamageables);
         }
 

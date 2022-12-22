@@ -91,8 +91,8 @@ public class EnemySpawner : MonoBehaviour
                 }
             }
             int VertexIndex = Random.Range(0, ( ValidTriangulation.Count));
-            Debug.Log(("Triangulation.vertices.Length :") + Triangulation.vertices.Length); ///=5720
-            Debug.Log(("ValidTriangulation.Count :") + ValidTriangulation.Count); 
+            //Debug.Log(("Triangulation.vertices.Length :") + Triangulation.vertices.Length); ///=5720
+            //Debug.Log(("ValidTriangulation.Count :") + ValidTriangulation.Count); 
             //Vector3 randomPoint = transform.position + (Random.insideUnitSphere * MaxRange);
             NavMeshHit Hit;
             if (NavMesh.SamplePosition(ValidTriangulation[VertexIndex], out Hit, 0, 1))

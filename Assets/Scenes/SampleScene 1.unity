@@ -2032,7 +2032,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 85.33, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
@@ -2501,13 +2501,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379663892}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 1.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 543450653329366317}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &379663894
 MonoBehaviour:
@@ -3257,7 +3257,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 88.041, y: -30, z: 0}
 --- !u!114 &410087042
 MonoBehaviour:
@@ -4486,7 +4486,7 @@ RectTransform:
   m_Children:
   - {fileID: 1885272155}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4599,7 +4599,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &632182785
 MonoBehaviour:
@@ -4617,6 +4617,7 @@ MonoBehaviour:
   progressXP: {fileID: 321153112}
   XpTXT: {fileID: 1102675359}
   MaxXP: 1
+  updatePanel: {fileID: 705465853}
 --- !u!33 &633002514
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6964,7 +6965,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &928601900
 GameObject:
@@ -7801,7 +7802,7 @@ RectTransform:
   - {fileID: 251952894}
   - {fileID: 705465854}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -13490,8 +13491,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5689c45cbc28c6f4fbec736315ffeb8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 61.9
-  viewAngle: 138
+  viewRadius: 70
+  viewAngle: 180
   targetMask:
     serializedVersion: 2
     m_Bits: 128
@@ -13504,7 +13505,7 @@ MonoBehaviour:
   maxBullet: 10
   Collider: {fileID: 1646720078}
   Damage: 1
-  AttackDelay: 0.37
+  AttackDelay: 0.9
 --- !u!23 &1647549082
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17439,6 +17440,7 @@ Transform:
   - {fileID: 961944360}
   - {fileID: 1993166933}
   - {fileID: 1646720075}
+  - {fileID: 379663893}
   m_Father: {fileID: 774353182}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

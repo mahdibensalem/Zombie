@@ -24,12 +24,11 @@ public class AttackRadius : MonoBehaviour
         IDamageable damageable = other.GetComponent<IDamageable>();
         if (damageable != null)
         {
-
+            
             Damageables.Add(damageable);
             AttackCoroutine = null;
             if (AttackCoroutine == null)
             {
-
                 AttackCoroutine = StartCoroutine(Attack());
             }
 
@@ -41,21 +40,17 @@ public class AttackRadius : MonoBehaviour
         IDamageable damageable = other.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            Damageables.Remove(damageable);
-            if (Damageables.Count == 0)
-            {
-                StopCoroutine(AttackCoroutine);
-            }
+            StopCoroutine(AttackCoroutine);
+            AttackCoroutine = null;
+            Damageables.Clear();
         }
-        AttackCoroutine = null;
-        Damageables.Clear();
     }
 
     protected virtual IEnumerator Attack()
     {
         WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
 
-        yield return Wait;
+        //yield return Wait;
 
         IDamageable closestDamageable = null;
         float closestDistance = float.MaxValue;
