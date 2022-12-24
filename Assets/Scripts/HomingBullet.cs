@@ -36,10 +36,7 @@ public class HomingBullet : Bullet
         {
             NoisePosition = NoiseCurve.Evaluate(time);
             transform.position = Vector3.Lerp(startPosition, Target.position, PositionCurve.Evaluate(time)) + new Vector3(HorizontalNoiseVector.x * NoisePosition * Noise.x, NoisePosition * Noise.y, NoisePosition * HorizontalNoiseVector.z * Noise.x);
-
-
             time += Time.deltaTime * Speed;
-            Debug.Log("Find Target");
             yield return null;
         }
         transform.position = Target.position;

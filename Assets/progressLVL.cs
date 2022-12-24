@@ -10,6 +10,7 @@ public class progressLVL : MonoBehaviour
     public Image progressXP;
     public TextMeshProUGUI XpTXT;
     public int MaxXP;
+    [SerializeField] GameObject updatePanel;
     private void Awake()
     {
         Instance = this;
@@ -22,15 +23,17 @@ public class progressLVL : MonoBehaviour
     }
     public void OnFillProgressXP(float amount)
     {
-        if (progressXP.fillAmount < 1)
+        if (progressXP.fillAmount <= 0.9f)
         {
             progressXP.fillAmount += amount/ MaxXP;
         }
         else
         {
             progressXP.fillAmount = 0f;
-            progressXP.fillAmount += amount;
             XpTXT.text=(float.Parse((XpTXT.text))+1).ToString();
+            updatePanel.SetActive(true);
+            Time.timeScale = 0f;
+
         }
     }
 }

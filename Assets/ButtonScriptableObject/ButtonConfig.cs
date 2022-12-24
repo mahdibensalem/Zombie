@@ -12,11 +12,11 @@ public class ButtonConfig : MonoBehaviour
     Button button;
     public Image image;
     public List<Sprite> images;
-    public float addedValue;
+    int addedValue;
 
 
 
-    int imageIndex = 0;
+    int imageIndex ;
     private void Awake()
     {
         imageIndex = 0;
@@ -38,20 +38,21 @@ public class ButtonConfig : MonoBehaviour
     }
     void action()
     {
+
+        Time.timeScale = 1;
+        imageIndex++;
+        image.sprite = myconfig.images[imageIndex];
         if (myconfig.action == ButtonScriptableObject.actionMethode.addHealth)
         {
             CarMouvment.instance.health += addedValue;
-            imageIndex++;
-            image.sprite = myconfig.images[imageIndex];
-
         }
-        if (myconfig.action == ButtonScriptableObject.actionMethode.addAttackSpeed)
+        else if (myconfig.action == ButtonScriptableObject.actionMethode.addAttackSpeed)
         {
-            //CarMouvment.instance.health += addedValue;
-
-            imageIndex++;
-            image.sprite = myconfig.images[imageIndex];
-
+/////////////////////////////////////////////////////
+        }
+        else if (myconfig.action == ButtonScriptableObject.actionMethode.addDamage)
+        {
+            BulletAttackRadius.Instance.Damage += addedValue;
         }
         OnExit();
     }

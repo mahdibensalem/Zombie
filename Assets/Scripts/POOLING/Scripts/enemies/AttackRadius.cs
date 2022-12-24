@@ -6,10 +6,10 @@ using UnityEngine;
 public class AttackRadius : MonoBehaviour
 {
     public SphereCollider Collider;
-    
+
     public List<IDamageable> Damageables = new List<IDamageable>();
     public int Damage = 1;
-    public float AttackDelay ;
+    public float AttackDelay;
     public delegate void AttackEvent(IDamageable Target);
     public AttackEvent OnAttack;
     protected Coroutine AttackCoroutine;
@@ -24,12 +24,11 @@ public class AttackRadius : MonoBehaviour
         IDamageable damageable = other.GetComponent<IDamageable>();
         if (damageable != null)
         {
-
+            
             Damageables.Add(damageable);
             AttackCoroutine = null;
             if (AttackCoroutine == null)
             {
-
                 AttackCoroutine = StartCoroutine(Attack());
             }
 
@@ -41,22 +40,17 @@ public class AttackRadius : MonoBehaviour
         IDamageable damageable = other.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            Damageables.Remove(damageable);
-            if (Damageables.Count == 0)
-            {
-                StopCoroutine(AttackCoroutine);
-                
-            }
+            StopCoroutine(AttackCoroutine);
+            AttackCoroutine = null;
+            Damageables.Clear();
         }
-        AttackCoroutine = null;
-        Damageables.Clear();
     }
 
     protected virtual IEnumerator Attack()
     {
         WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
 
-        yield return Wait;
+        //yield return Wait;
 
         IDamageable closestDamageable = null;
         float closestDistance = float.MaxValue;
@@ -92,7 +86,7 @@ public class AttackRadius : MonoBehaviour
         AttackCoroutine = null;
     }
 
-    protected  bool DisabledDamageables(IDamageable Damageable)
+    protected bool DisabledDamageables(IDamageable Damageable)
     {
         return Damageable != null && !Damageable.GetTransform().gameObject.activeSelf;
     }

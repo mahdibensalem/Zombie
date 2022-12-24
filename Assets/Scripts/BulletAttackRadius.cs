@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class BulletAttackRadius : MonoBehaviour
 {
+    public static BulletAttackRadius Instance;
     public float viewRadius;
     [Range(0, 360)]
     public float viewAngle;
@@ -25,8 +26,8 @@ public class BulletAttackRadius : MonoBehaviour
     public List<IDamageable> Damageables = new List<IDamageable>();
     public int Damage = 10;
     public float AttackDelay = 0.5f;
-    public delegate void AttackEvent(IDamageable Target);
-    public AttackEvent OnAttack;
+    //public delegate void AttackEvent(IDamageable Target);
+    //public AttackEvent OnAttack;
     protected Coroutine AttackCoroutine;
 
     protected virtual void Awake()
@@ -35,10 +36,10 @@ public class BulletAttackRadius : MonoBehaviour
         BulletPool = ObjectPool.CreateInstance(transform,BulletPrefab, maxBullet);
 
     }
-    //void Start()
-    //{
-    //    StartCoroutine("FindTargetsWithDelay", .2f);
-    //}
+    void Start()
+    {
+        Instance = this;
+    }
 
     IEnumerator FindTargetsWithDelay(float delay)
     {
@@ -53,63 +54,63 @@ public class BulletAttackRadius : MonoBehaviour
         FindVisibleTargets();
     }
 
-    void Attacke()
-    {
-        IDamageable closestDamageable = null;
-        float closestDistance = float.MaxValue;
-        if (Damageables.Count > 0)
-        {
-            Debug.Log("attack");
-            for (int i = 0; i < Damageables.Count; i++)
-            {
-                Transform damageableTransform = Damageables[i].GetTransform();
-                float distance = Vector3.Distance(transform.position, damageableTransform.position);
+    //void Attacke()
+    //{
+    //    IDamageable closestDamageable = null;
+    //    float closestDistance = float.MaxValue;
 
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestDamageable = Damageables[i];
-                }
-            }
+    //    if (Damageables.Count > 0)
+    //    {
+    //        Debug.Log("attack");
+    //        for (int i = 0; i < Damageables.Count; i++)
+    //        {
+    //            Transform damageableTransform = Damageables[i].GetTransform();
+    //            float distance = Vector3.Distance(transform.localPosition, damageableTransform.localPosition);
 
-            if (closestDamageable != null)
-            {
-                Debug.Log("ee2");
-                PoolableObject poolableObject = BulletPool.GetObject();
-                if (poolableObject != null)
-                {
-                    bullet = poolableObject.GetComponent<Bullet>();
+    //            if (distance < closestDistance)
+    //            {
+    //                closestDistance = distance;
+    //                closestDamageable = Damageables[i];
+    //            }
+    //        }
 
-                    bullet.transform.position = transform.position;
-                    bullet.transform.localRotation = Quaternion.LookRotation(-closestDamageable.GetTransform().forward);
-                    bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
-                }
-                //OnAttack?.Invoke(closestDamageable);
-                //closestDamageable.TakeDamage(Damage);
-            }
+    //        if (closestDamageable != null)
+    //        {
+    //            transform.LookAt(closestDamageable.GetTransform().forward);
+    //            Debug.Log("ee2");
+    //            PoolableObject poolableObject = BulletPool.GetObject();
+    //            if (poolableObject != null)
+    //            {
+    //                bullet = poolableObject.GetComponent<Bullet>();
 
-            closestDamageable = null;
-            closestDistance = float.MaxValue;
+    //                bullet.transform.position = transform.position;
+    //                //bullet.transform.localRotation = Quaternion.LookRotation(-closestDamageable.GetTransform().forward);
+    //                bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
+    //            }
+    //            //OnAttack?.Invoke(closestDamageable);
+    //            //closestDamageable.TakeDamage(Damage);
+    //        }
 
-            Damageables.RemoveAll(DisabledDamageables);
-        }
+    //        closestDamageable = null;
+    //        closestDistance = float.MaxValue;
 
-        AttackCoroutine = null;
+    //        Damageables.RemoveAll(DisabledDamageables);
+    //    }
+
+    //    AttackCoroutine = null;
 
 
-    }
+    //}
     protected virtual IEnumerator Attack()
     {
         WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
 
-        yield return Wait;
 
         IDamageable closestDamageable = null;
         float closestDistance = float.MaxValue;
 
         while (Damageables.Count > 0)
         {
-            Debug.Log("attack");
             for (int i = 0; i < Damageables.Count; i++)
             {
                 Transform damageableTransform = Damageables[i].GetTransform();
@@ -124,17 +125,17 @@ public class BulletAttackRadius : MonoBehaviour
 
             if (closestDamageable != null)
             {
-                Debug.Log("ee2");
+                transform.LookAt(closestDamageable.GetTransform().position);
                 PoolableObject poolableObject = BulletPool.GetObject();
                 if (poolableObject != null)
                 {
                     bullet = poolableObject.GetComponent<Bullet>();
 
                     bullet.transform.position = transform.position;
-                    bullet.transform.localRotation = Quaternion.LookRotation(-closestDamageable.GetTransform().forward);
-                    bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
+                    bullet.transform.rotation = transform.rotation;
+                    //bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
                 }
-                OnAttack?.Invoke(closestDamageable);
+                //OnAttack?.Invoke(closestDamageable);
                 //closestDamageable.TakeDamage(Damage);
             }
 
