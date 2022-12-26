@@ -46,10 +46,12 @@ public class ButtonConfig : MonoBehaviour
         {
             CarMouvment.instance.health += addedValue;
         }
-        else if (myconfig.action == ButtonScriptableObject.actionMethode.addAttackSpeed)
-        {
-/////////////////////////////////////////////////////
-        }
+//        else if (myconfig.action == ButtonScriptableObject.actionMethode.addAttackSpeed)
+//        {
+//            BulletAttackRadius.Instance.AttackDelay -= (addedValue / 10);
+//            BulletAttackRadius.Instance.StopCoroutine(BulletAttackRadius.Instance.Attack());
+///////////////////////////////////////////////////////
+//        }
         else if (myconfig.action == ButtonScriptableObject.actionMethode.addDamage)
         {
             BulletAttackRadius.Instance.Damage += addedValue;
