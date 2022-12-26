@@ -101,7 +101,7 @@ public class BulletAttackRadius : MonoBehaviour
 
 
     //}
-    protected virtual IEnumerator Attack()
+    public IEnumerator Attack()
     {
         WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
 
@@ -133,7 +133,7 @@ public class BulletAttackRadius : MonoBehaviour
 
                     bullet.transform.position = transform.position;
                     bullet.transform.rotation = transform.rotation;
-                    //bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
+                    bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
                 }
                 //OnAttack?.Invoke(closestDamageable);
                 //closestDamageable.TakeDamage(Damage);

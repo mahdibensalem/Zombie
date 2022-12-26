@@ -16,7 +16,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
     [SerializeField] float speed;
 
     public float health=100;
-
+    public BulletAttackRadius Fire;
 
     // Variables
     //float Drag = 0.98f;

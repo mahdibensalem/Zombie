@@ -29,7 +29,7 @@ public class Bullet : PoolableObject
     public virtual void Spawn(Vector3 Forward, int Damage, Transform Target)
     {
         this.Damage = Damage;
-        this.Target = Target;
+        //this.Target = Target;
         //RigidBody.AddForce(Forward * Speed, ForceMode.VelocityChange);
     }
     protected virtual void OnTriggerEnter(Collider other)

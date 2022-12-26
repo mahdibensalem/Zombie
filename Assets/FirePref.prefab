@@ -100,7 +100,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!136 &8876289145797765624
 CapsuleCollider:
@@ -112,7 +112,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 1
+  m_Radius: 1.5
   m_Height: 1.5
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509a20c9d19ccbc4e8d1b30852315607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutoDestroyTime: 5
-  RigidBody: {fileID: 0}
+  AutoDestroyTime: 2
+  RigidBody: {fileID: 5720131266675317761}
   Speed: 80
-  Damage: 1
+  Damage: 2
