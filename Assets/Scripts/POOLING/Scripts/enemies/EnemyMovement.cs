@@ -45,7 +45,7 @@ public class EnemyMovement : MonoBehaviour
     {
         WaitForSeconds Wait = new WaitForSeconds(UpdateRate);
 
-        while (gameObject.activeSelf)
+        while (Agent.enabled)
         {
             Agent.SetDestination(Player.transform.position);
             yield return Wait;

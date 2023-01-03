@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine.AI;
 using UnityEngine;
 
 public class CarMouvment : MonoBehaviour, IDamageable
@@ -17,7 +17,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
 
     public float health=100;
     public BulletAttackRadius Fire;
-
+    bool canDamage;
     // Variables
     //float Drag = 0.98f;
     //float Traction = 1;
@@ -31,6 +31,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
     {
         instance = this;
     }
+    
     public Transform GetTransform()
     {
         return transform;
@@ -78,10 +79,39 @@ public class CarMouvment : MonoBehaviour, IDamageable
         //Debug.DrawRay(transform.position, MoveForce.normalized * 3);
         //Debug.DrawRay(transform.position, transform.forward * 3, Color.blue);
         //MoveForce = Vector3.Lerp(MoveForce.normalized, transform.forward, Traction * Time.deltaTime) * MoveForce.magnitude;
+
+        if (rb.velocity.magnitude > 25f)
+        {
+            canDamage = true;
+        }
+        else canDamage = false;
+
+    }
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        Enemy enemy = collision.collider.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            ContactPoint contact = collision.contacts[0];
+            Vector3 hitPoint = contact.point;
+            Vector3 direction = hitPoint - transform.position;
+            if (canDamage)
+            {
+                Debug.Log("tit");
+                enemy.StopAllCoroutines();
+                enemy.Movement.StopAllCoroutines();
+                enemy.GetComponent<NavMeshAgent>().enabled = false;
+                enemy.GetComponent<Rigidbody>().isKinematic = false;
+                enemy.rb.AddForce(5*direction* rb.velocity.magnitude);
+                enemy.TakeDamage(enemy.Health);
+            }
+        }
     }
     public void TakeDamage( int damage)
     {
         health -= damage;
         //updateHealth();
     }
+
 }

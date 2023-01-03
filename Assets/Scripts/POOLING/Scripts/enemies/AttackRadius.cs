@@ -51,7 +51,7 @@ public class AttackRadius : MonoBehaviour
         WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
 
         //yield return Wait;
-
+        //GetComponentInParent<Animator>().SetTrigger("Attack");
         IDamageable closestDamageable = null;
         float closestDistance = float.MaxValue;
 

@@ -125,15 +125,15 @@ public class BulletAttackRadius : MonoBehaviour
 
             if (closestDamageable != null)
             {
-                transform.LookAt(closestDamageable.GetTransform().position);
+                //transform.LookAt(closestDamageable.GetTransform().position);
                 PoolableObject poolableObject = BulletPool.GetObject();
                 if (poolableObject != null)
                 {
                     bullet = poolableObject.GetComponent<Bullet>();
 
                     bullet.transform.position = transform.position;
-                    bullet.transform.rotation = transform.rotation;
-                    bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
+                    bullet.transform.LookAt(closestDamageable.GetTransform().position);
+                    //bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
                 }
                 //OnAttack?.Invoke(closestDamageable);
                 //closestDamageable.TakeDamage(Damage);
@@ -153,7 +153,6 @@ public class BulletAttackRadius : MonoBehaviour
     {
         Damageables.Clear();
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
-
 
         for (int i = 0; i < targetsInViewRadius.Length; i++) 
         {

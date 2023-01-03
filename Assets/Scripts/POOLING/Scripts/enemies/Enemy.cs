@@ -6,26 +6,30 @@ public class Enemy : PoolableObject, IDamageable
     public EnemyMovement Movement;
     public AttackRadius AttackRadius;
     public NavMeshAgent Agent;
+    public Rigidbody rb;
     public int Health;
     public float xp;
+    [SerializeField] Animator animator;
     float attackDelay;
 
     private Coroutine LookCoroutine;
     private const string ATTACK_TRIGGER = "Attack";
+    
     private void Awake()
     {
         AttackRadius.OnAttack += OnAttack;
+        
     }
     private void OnAttack(IDamageable Target)
     {
-        //Animator.SetTrigger(ATTACK_TRIGGER);
+
 
         if (LookCoroutine != null)
         {
-            
+
             StopCoroutine(LookCoroutine);
         }
-
+        Debug.Log("lookat");
         LookCoroutine = StartCoroutine(LookAt(Target.GetTransform()));
     }
 
@@ -33,16 +37,17 @@ public class Enemy : PoolableObject, IDamageable
     {
         Quaternion lookRotation = Quaternion.LookRotation(Target.position - transform.position);
         float time = 0;
-
+        if (Health < 1)
+        {
+            animator.SetTrigger(ATTACK_TRIGGER);
+        }
         while (time<attackDelay)
         {
+
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, time);
-
-            time += Time.deltaTime*2 ;
+            time += Time.deltaTime ;
             yield return null;
-            Debug.Log("lookat");
         }
-
         transform.rotation = lookRotation;
     }
 
@@ -67,13 +72,22 @@ public class Enemy : PoolableObject, IDamageable
 
         if (Health <= 0)
         {
-            gameObject.SetActive(false);
-            progressLVL.Instance.OnFillProgressXP(xp);
+            GetComponent<CapsuleCollider>().enabled = false;
+            StartCoroutine(OnDie());
         }
     }
+    IEnumerator OnDie()
+    {
+        Agent.enabled = false;
+        animator.SetTrigger("Dead");
+        progressLVL.Instance.OnFillProgressXP(xp);
+        yield return new WaitForSeconds(2);
+        gameObject.SetActive(false);
 
+    }
     public Transform GetTransform()
     {
         return transform;
     }
+
 }

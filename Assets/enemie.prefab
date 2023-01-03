@@ -155,9 +155,8 @@ MonoBehaviour:
   Movement: {fileID: 7691859533319974066}
   AttackRadius: {fileID: 1452010110393115530}
   Agent: {fileID: 672129641150761721}
-  EnemyScriptableObject: {fileID: 11400000, guid: 86ffa6b8cdfe65b43ac229d7e571b692,
-    type: 2}
   Health: 1
+  xp: 0
 --- !u!1 &8555794663679886526
 GameObject:
   m_ObjectHideFlags: 0

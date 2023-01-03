@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5720131266675317761}
   - component: {fileID: 8876289145797765624}
   - component: {fileID: 8835752354225473289}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FirePref
   m_TagString: Untagged
   m_Icon: {fileID: 0}

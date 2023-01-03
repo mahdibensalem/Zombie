@@ -11,9 +11,10 @@ public class EnemyScriptableObject : ScriptableObject
     public float speed;
     public void SetupEnemy(Enemy enemy)
     {
+        enemy.GetComponent<Rigidbody>().isKinematic = true;
+        enemy.GetComponent<CapsuleCollider>().enabled = true;
         enemy.Health = health;
         enemy.Agent.speed = speed;
-        enemy.Agent.stoppingDistance = AttackConfiguration.AttackRadius;
         enemy.AttackRadius.Damage = AttackConfiguration.Damage;
         enemy.xp = XP;
         enemy.AttackRadius.AttackDelay = AttackConfiguration.AttackDelay;

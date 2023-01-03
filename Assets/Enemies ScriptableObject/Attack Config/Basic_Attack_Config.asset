@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsRanged: 0
   Damage: 1
-  AttackRadius: 4
+  AttackRadius: 0.7
   AttackDelay: 1
   BulletPrefab: {fileID: 0}
   BulletSpawnOffset: {x: 0, y: 1, z: 0}
   LineOfSightLayers:
     serializedVersion: 2
     m_Bits: 0
+  StoppingDistance: 7
