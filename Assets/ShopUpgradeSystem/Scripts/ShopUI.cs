@@ -5,6 +5,7 @@ namespace ShopUpgradeSystem
 {
     public class ShopUI : MonoBehaviour
     {
+        public static ShopUI Instance;
         [SerializeField] private int totalCoins = 5000;
         [SerializeField] private SaveLoadData saveLoadData;
 
@@ -17,7 +18,10 @@ namespace ShopUpgradeSystem
 
         private int currentIndex = 0;                       //index of current item showing in the shop 
         private int selectedIndex;                          //actual selected item index
-
+        private void Awake()
+        {
+            Instance = this;
+        }
         private void Start()
         {
             

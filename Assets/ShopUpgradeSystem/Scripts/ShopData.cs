@@ -32,9 +32,9 @@ namespace ShopUpgradeSystem
         public int helthUnlockCost;
         public int health;
         public int bodyUnlockCost;
-        public int body;
+        public float body;
         public int attackSpeedUnlockCost;
-        public int attackSpeed;
+        public float attackSpeed;
 
     }
 }

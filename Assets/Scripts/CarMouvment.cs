@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.AI;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CarMouvment : MonoBehaviour, IDamageable
 {
     public static CarMouvment instance;
-  [SerializeField]  FloatingJoystick joystick;
+    [SerializeField] FloatingJoystick joystick;
 
     public float MoveSpeed = 50;
     public float MaxSpeed = 15;
@@ -14,24 +12,46 @@ public class CarMouvment : MonoBehaviour, IDamageable
     Rigidbody rb;
     Vector3 movedir;
     [SerializeField] float speed;
-
-    public float health=100;
-    public BulletAttackRadius Fire;
+    public GameObject[] myCars;
+    public Vector3[] myPosCar;
+    public float health = 100;
+    public GameObject fire;
+    public float carBody;
+    public float attackSpeed;
+    //public BulletAttackRadius Fire;
     bool canDamage;
     // Variables
     //float Drag = 0.98f;
     //float Traction = 1;
 
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        Debug.Log(ShopUpgradeSystem.ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
+        carLevelsData[(ShopUpgradeSystem.ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedHealthLevel)].health);
+        GameObject myCar = Instantiate(myCars[PlayerPrefs.GetInt("SelectedItem")], transform);
+        //myCar.transform.position = myPosCar[PlayerPrefs.GetInt("SelectedItem")];
+        Instantiate(fire, myCar.transform.GetChild(0));
+
+        carBody = ShopUpgradeSystem.ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
+        carLevelsData[(ShopUpgradeSystem.ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedHealthLevel)].body;
+
+        health = ShopUpgradeSystem.ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
+            carLevelsData[(ShopUpgradeSystem.ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedHealthLevel)].health;
+
+        attackSpeed = ShopUpgradeSystem.ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
+            carLevelsData[(ShopUpgradeSystem.ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedHealthLevel)].attackSpeed;
+
     }
+
 
     private void Start()
     {
         instance = this;
+        fire.GetComponent<BulletAttackRadius>().AttackDelay = attackSpeed;
     }
-    
+
     public Transform GetTransform()
     {
         return transform;
@@ -46,17 +66,17 @@ public class CarMouvment : MonoBehaviour, IDamageable
         //MoveForce = Vector3.Lerp(MoveForce.normalized, -movedir, Traction * Time.fixedDeltaTime) * MoveForce.magnitude;
         //rb.AddForce(movedir, ForceMode.Acceleration);
 
-        rb.AddForce(transform.forward*((Mathf.Abs(joystick.Vertical)+ Mathf.Abs(joystick.Horizontal))%2) * MoveSpeed);
-       movedir = new Vector3(joystick.Horizontal * MoveSpeed, 0, joystick.Vertical * MoveSpeed);
+        rb.AddForce(transform.forward * ((Mathf.Abs(joystick.Vertical) + Mathf.Abs(joystick.Horizontal)) % 2) * MoveSpeed);
+        movedir = new Vector3(joystick.Horizontal * MoveSpeed, 0, joystick.Vertical * MoveSpeed);
         if (movedir != Vector3.zero)
         {
             Quaternion toRot = Quaternion.LookRotation(movedir);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRot,SteerAngle );
-              rb.velocity = Vector3.ClampMagnitude(rb.velocity, MaxSpeed);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRot, SteerAngle);
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, MaxSpeed);
         }
         else
         {
-            rb.velocity = Vector3.Lerp(rb.velocity,Vector3.zero,Time.fixedDeltaTime*speed);
+            rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.fixedDeltaTime * speed);
         }
         //transform.rotation = Quaternion.LookRotation(rb.velocity);
         //Debug.Log(transform.forward * ((Mathf.Abs(joystick.Vertical) + Mathf.Abs(joystick.Horizontal)) % 2) * MoveSpeed);
@@ -87,7 +107,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
         else canDamage = false;
 
     }
-    
+
     private void OnCollisionEnter(Collision collision)
     {
         Enemy enemy = collision.collider.GetComponent<Enemy>();
@@ -103,14 +123,14 @@ public class CarMouvment : MonoBehaviour, IDamageable
                 enemy.Movement.StopAllCoroutines();
                 enemy.GetComponent<NavMeshAgent>().enabled = false;
                 enemy.GetComponent<Rigidbody>().isKinematic = false;
-                enemy.rb.AddForce(5*direction* rb.velocity.magnitude);
+                enemy.rb.AddForce(5 * direction * rb.velocity.magnitude);
                 enemy.TakeDamage(enemy.Health);
             }
         }
     }
-    public void TakeDamage( int damage)
+    public void TakeDamage(int damage)
     {
-        health -= damage;
+        health -= damage / carBody;
         //updateHealth();
     }
 
