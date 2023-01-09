@@ -21,4 +21,4 @@ MonoBehaviour:
   LineOfSightLayers:
     serializedVersion: 2
     m_Bits: 0
-  StoppingDistance: 7
+  StoppingDistance: 10
