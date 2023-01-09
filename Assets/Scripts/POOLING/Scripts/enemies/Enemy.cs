@@ -37,7 +37,7 @@ public class Enemy : PoolableObject, IDamageable
     {
         Quaternion lookRotation = Quaternion.LookRotation(Target.position - transform.position);
         float time = 0;
-        if (Health < 1)
+        if (Health != 0)
         {
             animator.SetTrigger(ATTACK_TRIGGER);
         }

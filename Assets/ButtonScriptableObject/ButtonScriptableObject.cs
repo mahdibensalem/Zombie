@@ -11,7 +11,9 @@ public class ButtonScriptableObject : ScriptableObject
     {
         addDamage,
         addHealth,
-        addAttackSpeed
+        addAttackSpeed,
+        addRange,
+        addViewAngle
     }
 
 

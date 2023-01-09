@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private List<Vector3> ValidTriangulation;
    [SerializeField] private Dictionary<int, ObjectPool> EnemyObjectPools = new Dictionary<int, ObjectPool>();
 
-    [SerializeField] float MaxRange;
+    [SerializeField] float MaxRange, MinRange;
 
 
     public bool win = false;
@@ -82,9 +82,12 @@ public class EnemySpawner : MonoBehaviour
         {
             Enemy enemy = poolableObject.GetComponent<Enemy>();
             Enemies[SpawnIndex].SetupEnemy(enemy);
+            float dis;
             for (int j =0; j < Triangulation.vertices.Length; j++)
             {
-                if(Vector3.Distance(Triangulation.vertices[j],transform.position)<MaxRange)
+                dis = Vector3.Distance(Triangulation.vertices[j], transform.position);
+                
+                if ((Vector3.Distance(Triangulation.vertices[j],transform.position)<MaxRange)&&(Vector3.Distance(Triangulation.vertices[j], transform.position) > MinRange))
                 {
                     ValidTriangulation.Add(Triangulation.vertices[j]);
                     i++;

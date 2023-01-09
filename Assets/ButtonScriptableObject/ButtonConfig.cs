@@ -36,6 +36,7 @@ public class ButtonConfig : MonoBehaviour
             images.Add(sprite);
         }
     }
+
     void action()
     {
 
@@ -54,8 +55,9 @@ public class ButtonConfig : MonoBehaviour
 //        }
         else if (myconfig.action == ButtonScriptableObject.actionMethode.addDamage)
         {
-            BulletAttackRadius.Instance.Damage += addedValue;
+            BulletAttackRadius.Instance.AddDamage();
         }
+        
         OnExit();
     }
     public void OnExit()

@@ -37,6 +37,10 @@ namespace ShopUpgradeSystem
             
             totalCoins = PlayerPrefs.GetInt("Coins");
             totalCoinsText.text = "" + totalCoins;
+            if (totalCoins >= 1000)
+            {
+                totalCoinsText.text = (totalCoins / 1000) + "K";
+            }
             SetCarInfo();
 
             unlockBtn.onClick.AddListener(() => UnlockSelectButton());      //add listner to button
@@ -64,9 +68,9 @@ namespace ShopUpgradeSystem
             int currentAttackSpeedLevel = shopData.shopItems[currentIndex].unlockedAttackSpeedLevel;
 
 
-            HealthlevelText.text = "Level:"+ (currentHealthLevel+1)/*+ shopData.shopItems[currentIndex].carLevelsData[currentHealthLevel].health*/;  //level start from zero we add 1
-            BodyLevelText.text = "Level:" + (currentBodyLevel+1)  ;
-            AttackSpeedLevelText.text = "Level:"+(currentAttackSpeedLevel+1);
+            HealthlevelText.text = "LEVEL "+ (currentHealthLevel+1)/*+ shopData.shopItems[currentIndex].carLevelsData[currentHealthLevel].health*/;  //level start from zero we add 1
+            BodyLevelText.text = "LEVEL " + (currentBodyLevel+1)  ;
+            AttackSpeedLevelText.text = "LEVEL " + (currentAttackSpeedLevel+1);
             foreach(Image img in LVLIndexHealthImage)
             {
                 img.color = Color.white;
@@ -164,8 +168,7 @@ namespace ShopUpgradeSystem
                 if (totalCoins >= shopData.shopItems[currentIndex].unlockCost)
                 {
                     //if yes then reduce the cost coins from our total coins
-                    totalCoins -= shopData.shopItems[currentIndex].unlockCost;
-                    totalCoinsText.text = "" + totalCoins;          //set the coins text
+                    UpgradeCoins(shopData.shopItems[currentIndex].unlockCost);    //set the coins text
                     yesSelected = true;                             //set yesSelected to true
                     shopData.shopItems[currentIndex].isUnlocked = true; //mark the shop item unlocked
                     UpgradeButtonStatus();
@@ -202,7 +205,7 @@ namespace ShopUpgradeSystem
                 if (shopData.shopItems[currentIndex].unlockedHealthLevel < shopData.shopItems[currentIndex].carLevelsData.Length - 1)
                 {
                     upgradeHealthBtnText.text = 
-                        shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex + 1].helthUnlockCost.ToString()+"K";
+                        (shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex + 1].helthUnlockCost/1000)+"K";
                 }
                 else    //we check if we are at max level
                 {
@@ -213,6 +216,8 @@ namespace ShopUpgradeSystem
                 SetCarInfo();
                 saveLoadData.SaveData();
             }
+            UpgradeButtonStatus();
+
         }
         private void UpgradeBodyButton()//upgrade button is interactable only if we have any level left to upgrade
         {
@@ -229,7 +234,7 @@ namespace ShopUpgradeSystem
                 if (shopData.shopItems[currentIndex].unlockedBodyLevel < shopData.shopItems[currentIndex].carLevelsData.Length - 1)
                 {
                     upgradeBodyBtnText.text = 
-                        shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex + 1].bodyUnlockCost.ToString()+"K";
+                       (shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex + 1].bodyUnlockCost / 1000)+"K";
                 }
                 else    //we check if we are at max level
                 {
@@ -240,6 +245,7 @@ namespace ShopUpgradeSystem
                 SetCarInfo();
                 saveLoadData.SaveData();
             }
+            UpgradeButtonStatus();
         }
         private void UpgradeAttackSpeedButton()//upgrade button is interactable only if we have any level left to upgrade
         {
@@ -256,7 +262,7 @@ namespace ShopUpgradeSystem
                 if (shopData.shopItems[currentIndex].unlockedAttackSpeedLevel < shopData.shopItems[currentIndex].carLevelsData.Length - 1)
                 {
                     upgradeAttackSpeedBtnText.text = 
-                        shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex + 1].attackSpeedUnlockCost.ToString()+"K";
+                        (shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex + 1].attackSpeedUnlockCost / 1000)+"K";
                 }
                 else    //we check if we are at max level
                 {
@@ -267,6 +273,7 @@ namespace ShopUpgradeSystem
                 SetCarInfo();
                 saveLoadData.SaveData();
             }
+            UpgradeButtonStatus();
         }
 
         /// <summary>
@@ -286,7 +293,8 @@ namespace ShopUpgradeSystem
             else if (!shopData.shopItems[currentIndex].isUnlocked) //if current item is not unlocked
             {
                 unlockBtn.interactable = true;  //set the unlockbtn interactable
-                unlockBtnText.text = shopData.shopItems[currentIndex].unlockCost + ""; //set the text as cost of item
+
+                unlockBtnText.text =( shopData.shopItems[currentIndex].unlockCost / 1000) + "K"; //set the text as cost of item
             }
         }
 
@@ -306,7 +314,9 @@ namespace ShopUpgradeSystem
                     int nextLevelIndex = shopData.shopItems[currentIndex].unlockedHealthLevel + 1;
                     //set the next level as value of upgrade button text
                     upgradeHealthBtnText.text = /*"Upgrade Cost:" +*/
-                        shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex].helthUnlockCost+"K";
+                        (shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex].helthUnlockCost / 1000)+"K";
+                    if (shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex].helthUnlockCost > totalCoins) upgradeHealthBtn.interactable = false;
+
                 }
                 else   //if unlockLevel of current item is equal to max level
                 {
@@ -322,7 +332,9 @@ namespace ShopUpgradeSystem
                     int nextLevelIndex = shopData.shopItems[currentIndex].unlockedBodyLevel + 1;
                     //set the next level as value of upgrade button text
                     upgradeBodyBtnText.text = /*"Upgrade Cost:" +*/
-                        shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex].bodyUnlockCost+"K";
+                        (shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex].bodyUnlockCost / 1000)+"K";
+                    if (shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex].bodyUnlockCost > totalCoins) upgradeBodyBtn.interactable = false;
+
                 }
                 else   //if unlockLevel of current item is equal to max level
                 {
@@ -338,7 +350,8 @@ namespace ShopUpgradeSystem
                     int nextLevelIndex = shopData.shopItems[currentIndex].unlockedAttackSpeedLevel + 1;
                     //set the next level as value of upgrade button text
                     upgradeAttackSpeedBtnText.text = 
-                        shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex].attackSpeedUnlockCost+"K";
+                        (shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex].attackSpeedUnlockCost / 1000)+"K";
+                    if (shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex].attackSpeedUnlockCost > totalCoins) upgradeAttackSpeedBtn.interactable = false;
                 }
                 else   //if unlockLevel of current item is equal to max level
                 {
@@ -362,7 +375,12 @@ namespace ShopUpgradeSystem
         private void UpgradeCoins(int value)
         {
             totalCoins -= value;
-            totalCoinsText.text = totalCoins.ToString();
+            if (totalCoins >= 1000)
+            {
+                totalCoinsText.text = (totalCoins / 1000) + "K";
+            }
+            else totalCoinsText.text = totalCoins.ToString();
+
             PlayerPrefs.SetInt("Coins", totalCoins);
 
             

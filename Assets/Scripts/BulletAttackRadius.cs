@@ -24,7 +24,7 @@ public class BulletAttackRadius : MonoBehaviour
     public SphereCollider Collider;
 
     public List<IDamageable> Damageables = new List<IDamageable>();
-    public int Damage = 10;
+
     public float AttackDelay = 0.5f;
     //public delegate void AttackEvent(IDamageable Target);
     //public AttackEvent OnAttack;
@@ -34,6 +34,7 @@ public class BulletAttackRadius : MonoBehaviour
     {
         Collider = GetComponent<SphereCollider>();
         BulletPool = ObjectPool.CreateInstance(transform,BulletPrefab, maxBullet);
+        PoolableObject poolableObject = BulletPool.GetObject();
 
     }
     void Start()
@@ -52,6 +53,10 @@ public class BulletAttackRadius : MonoBehaviour
     private void Update()
     {
         FindVisibleTargets();
+    }
+    public void AddDamage()
+    {
+        BulletPool.AddDamagePoolableObject(10);
     }
 
     //void Attacke()

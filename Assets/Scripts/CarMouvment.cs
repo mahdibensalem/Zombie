@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
-
+using ShopUpgradeSystem;
+using UnityEngine.UI;
 public class CarMouvment : MonoBehaviour, IDamageable
 {
     public static CarMouvment instance;
@@ -14,42 +15,57 @@ public class CarMouvment : MonoBehaviour, IDamageable
     [SerializeField] float speed;
     public GameObject[] myCars;
     public Vector3[] myPosCar;
+    private float maxHealth;
     public float health = 100;
     public GameObject fire;
     public float carBody;
     public float attackSpeed;
+    public Image healthBar;
     //public BulletAttackRadius Fire;
     bool canDamage;
     // Variables
     //float Drag = 0.98f;
     //float Traction = 1;
 
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        Debug.Log(ShopUpgradeSystem.ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
-        carLevelsData[(ShopUpgradeSystem.ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedHealthLevel)].health);
         GameObject myCar = Instantiate(myCars[PlayerPrefs.GetInt("SelectedItem")], transform);
         //myCar.transform.position = myPosCar[PlayerPrefs.GetInt("SelectedItem")];
         Instantiate(fire, myCar.transform.GetChild(0));
 
-        carBody = ShopUpgradeSystem.ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
-        carLevelsData[(ShopUpgradeSystem.ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedHealthLevel)].body;
-
-        health = ShopUpgradeSystem.ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
-            carLevelsData[(ShopUpgradeSystem.ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedHealthLevel)].health;
-
-        attackSpeed = ShopUpgradeSystem.ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
-            carLevelsData[(ShopUpgradeSystem.ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedHealthLevel)].attackSpeed;
+        SetCarUpgrade();
 
     }
+    void SetCarUpgrade()
+    {
+        int dataIncluded = ShopUI.Instance?.shopData.shopItems.Length ?? 0;
 
+        if (dataIncluded == 0)
+        {
+            carBody = 1;
+            maxHealth=health = 100;
+            attackSpeed = 0.5f;
+        }
+        else
+        {
+            carBody = ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
+            carLevelsData[(ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedHealthLevel)].body; 
+
+            health = ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
+            carLevelsData[(ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedHealthLevel)].health; ;
+
+            attackSpeed = ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
+            carLevelsData[(ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedHealthLevel)].attackSpeed; ;
+
+        }
+    }
 
     private void Start()
     {
         instance = this;
         fire.GetComponent<BulletAttackRadius>().AttackDelay = attackSpeed;
+        
     }
 
     public Transform GetTransform()
@@ -131,7 +147,8 @@ public class CarMouvment : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         health -= damage / carBody;
-        //updateHealth();
+        healthBar.fillAmount = health / maxHealth;
     }
+
 
 }

@@ -6,15 +6,15 @@ public class ObjectPool
     private PoolableObject Prefab;
     private int Size;
     private List<PoolableObject> AvailableObjectsPool;
-
+    private List<PoolableObject> MYAllObjectsPool;
     private ObjectPool(PoolableObject Prefab, int Size)
     {
         this.Prefab = Prefab;
         this.Size = Size;
-        AvailableObjectsPool = new List<PoolableObject>(Size);
+        MYAllObjectsPool = AvailableObjectsPool = new List<PoolableObject>(Size);
     }
 
-    public static ObjectPool CreateInstance(Transform parent,PoolableObject Prefab, int Size)
+    public static ObjectPool CreateInstance(Transform parent, PoolableObject Prefab, int Size)
     {
         ObjectPool pool = new ObjectPool(Prefab, Size);
 
@@ -34,19 +34,27 @@ public class ObjectPool
             poolableObject.gameObject.SetActive(false); // PoolableObject handles re-adding the object to the AvailableObjects
         }
     }
+    public void AddDamagePoolableObject(int amount)
+    {
+        foreach(PoolableObject fire in MYAllObjectsPool)
+        {
+            fire.gameObject.GetComponent<Bullet>().Damage = amount;
+        }
+
+    }
 
     public PoolableObject GetObject()
     {
         if (AvailableObjectsPool.Count == 0) return null;
-        
-            PoolableObject instance = AvailableObjectsPool[0];
 
-            AvailableObjectsPool.RemoveAt(0);
+        PoolableObject instance = AvailableObjectsPool[0];
 
-            instance.gameObject.SetActive(true);
+        AvailableObjectsPool.RemoveAt(0);
 
-            return instance;
-        
+        instance.gameObject.SetActive(true);
+
+        return instance;
+
     }
 
     public void ReturnObjectToPool(PoolableObject Object)
