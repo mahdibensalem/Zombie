@@ -78,8 +78,8 @@ MonoBehaviour:
     - UnityEditor.DeviceSimulation.ApplicationSettingsPlugin
     pluginStates:
     - '{}'
-    scale: 17
-    fitToScreenEnabled: 0
+    scale: 16
+    fitToScreenEnabled: 1
     rotationDegree: 0
     highlightSafeAreaEnabled: 0
     friendlyName: Apple iPad (5th gen)
@@ -154,8 +154,8 @@ MonoBehaviour:
     y: 0
     width: 302.4
     height: 450.4
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 6}
   m_Panes:
   - {fileID: 6}
@@ -193,8 +193,8 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: deadfeff
-      m_LastClickedID: -86562
+      m_SelectedIDs: 885bfeff
+      m_LastClickedID: -107640
       m_ExpandedIDs: a6dfffffecfaffffc06b0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
@@ -474,9 +474,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 6.2612524, y: -4.18544, z: 3.7234097}
+    m_Target: {x: -9.436246, y: 1.2149887, z: -3.2261677}
     speed: 2
-    m_Value: {x: 6.2612524, y: -4.18544, z: 3.7234097}
+    m_Value: {x: -9.436246, y: 1.2149887, z: -3.2261677}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -523,13 +523,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.3613416, y: -0.029365486, z: 0.011385965, w: 0.93190277}
+    m_Target: {x: 0.42021716, y: -0.050320458, z: 0.023345923, w: 0.905729}
     speed: 2
-    m_Value: {x: 0.36132362, y: -0.030763265, z: 0.011927949, w: 0.93185645}
+    m_Value: {x: 0.42025074, y: -0.048961695, z: 0.02271552, w: 0.9058014}
   m_Size:
-    m_Target: 17.427841
+    m_Target: 12.781725
     speed: 2
-    m_Value: 16.67736
+    m_Value: 12.781725
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -719,22 +719,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Cars/upgradedCars/Truck(weapon)
+    - Assets/Cars/upgradedCars/JeepUpg
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Cars/upgradedCars/Truck(weapon)
+  - Assets/Cars/upgradedCars/JeepUpg
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Rihab\Desktop\ZombieSmash\Zombie
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: c0770000
-    m_LastClickedID: 30656
-    m_ExpandedIDs: 00000000987500009a7500004677000076770000b477000000ca9a3b
+    m_SelectedIDs: 38ab0000
+    m_LastClickedID: 43832
+    m_ExpandedIDs: 00000000987500009a75000046770000b477000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -762,7 +762,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000987500009a750000
+    m_ExpandedIDs: 00000000987500009a75000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -787,8 +787,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: deadfeff
-    m_LastClickedInstanceID: -86562
+    m_SelectedInstanceIDs: 885bfeff
+    m_LastClickedInstanceID: -107640
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
@@ -866,8 +866,8 @@ MonoBehaviour:
     y: 0
     width: 311.19995
     height: 730.8
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
