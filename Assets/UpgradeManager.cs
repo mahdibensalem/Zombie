@@ -12,7 +12,7 @@ public class UpgradeManager : MonoBehaviour
     int y = 0;
 
     //public List<GameObject> _UpgradeButttttttons ;
-    private void Start()
+    private void Awake()
     {
         for (int i =0; i < Upgrades.Count; i++)
         {
@@ -20,28 +20,31 @@ public class UpgradeManager : MonoBehaviour
             button.GetComponent<ButtonConfig>().myconfig = Upgrades[i];
             button.SetActive(false);
         }
-        for (int i = 0; i < 3; i++)
-        {
-            transform.GetChild(y).gameObject.SetActive(true);
-            y+=2;
-            y = y % Upgrades.Count-1;
-        }
-    }
-    public void OnActive()
-    {
+        //OnActive();
+        //for (int i = 0; i < 3; i++)
+        //{
+        //    Debug.Log(y);
+        //    transform.GetChild(y).gameObject.SetActive(true);
+        //    y += 2;
 
+        //    y = y % (Upgrades.Count);
+        //}
+    }
+    public void OnEnable()
+    {
+        Time.timeScale = 0f;
         for (int i = 0; i < 3; i++)
         {
             transform.GetChild(y).gameObject.SetActive(true);
-            y += 2;
-            y = y % Upgrades.Count - 1;
+            y ++;
+            y = y % (Upgrades.Count-1);
         }
     }
     private void OnDisable()
     {
         for (int i = 0; i < Upgrades.Count; i++)
         {
-            transform.GetChild(y).gameObject.SetActive(false);
+            transform.GetChild(i).gameObject.SetActive(false);
 
         }
 

@@ -12,6 +12,7 @@ namespace ShopUpgradeSystem
 
         public GameObject[] carList;                       //list to all the 3D models of items
         public ShopData shopData;                 //ref to ShopSaveScriptable asset
+        
         public Text unlockBtnText, carNameText,totalCoinsText; //ref to important text components
         public TextMeshProUGUI upgradeHealthBtnText, upgradeBodyBtnText, upgradeAttackSpeedBtnText;
         public TextMeshProUGUI HealthlevelText,BodyLevelText, AttackSpeedLevelText;
@@ -90,11 +91,14 @@ namespace ShopUpgradeSystem
             for(int i=0;i<=currentBodyLevel; i++)
             {
                 LVLIndexBodyImage[i].color = Color.red;
-            }   
-            for(int i=0;i<=currentAttackSpeedLevel; i++)
+                carList[currentIndex].transform.GetChild(i).gameObject.SetActive(true);
+
+            }
+            for (int i=0;i<=currentAttackSpeedLevel; i++)
             {
                 LVLIndexAttackSpeedImage[i].color = Color.red;
             }
+
         }
 
         /// <summary>
@@ -108,6 +112,7 @@ namespace ShopUpgradeSystem
                 carList[currentIndex].SetActive(false);                     //deactivate old model
                 currentIndex++;                                             //increase count by 1
                 carList[currentIndex].SetActive(true);                      //activate the new model
+
                 SetCarInfo();                                               //set car information
 
                 //check if current index is equal to total items - 1

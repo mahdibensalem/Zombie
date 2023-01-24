@@ -147,8 +147,12 @@ public class CarMouvment : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         health -= damage / carBody;
-        healthBar.fillAmount = health / maxHealth;
+        UpgradeHealthBar();
     }
+    public void UpgradeHealthBar()
+    {
+        healthBar.fillAmount = health / maxHealth;
 
+    }
 
 }

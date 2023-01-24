@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
     public float SpawnDelay = 1f;
     public List<EnemyScriptableObject> Enemies = new List<EnemyScriptableObject>();
     public SpawnMethod EnemySpawnMethod = SpawnMethod.RoundRobin;
-
+    Coroutine coroutine;
    [SerializeField] private NavMeshTriangulation Triangulation;
     [SerializeField] private List<Vector3> ValidTriangulation;
    [SerializeField] private Dictionary<int, ObjectPool> EnemyObjectPools = new Dictionary<int, ObjectPool>();
@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float MaxRange, MinRange;
 
 
-    public bool win = false;
+    public bool StopSpawnEnemy = false;
 
 
     private void Start()
@@ -34,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
 
         }
 
-        StartCoroutine(SpawnEnemies());
+        coroutine= StartCoroutine(SpawnEnemies());
     }
 
     private IEnumerator SpawnEnemies()
@@ -43,7 +43,7 @@ public class EnemySpawner : MonoBehaviour
 
         int SpawnedEnemies = 1;
         
-        while (!win)
+        while (!StopSpawnEnemy)
         {
             if (EnemySpawnMethod == SpawnMethod.RoundRobin)
             {
@@ -54,7 +54,7 @@ public class EnemySpawner : MonoBehaviour
                 SpawnRandomEnemy();
             }
 
-            SpawnRandomEnemy();
+            
             SpawnedEnemies++;
 
             yield return Wait;
@@ -64,7 +64,6 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnRoundRobinEnemy(int SpawnedEnemies)
     {
         int SpawnIndex = SpawnedEnemies % Enemies.Count;
-
         DoSpawnEnemy(SpawnIndex);
     }
 
@@ -126,4 +125,13 @@ public class EnemySpawner : MonoBehaviour
         Random
         // Other spawn methods can be added here
     }
+    public void ChangeTimeSpawn(float time)
+    {
+        
+        StopCoroutine(coroutine);
+        coroutine = null;
+        SpawnDelay = time;
+        coroutine = StartCoroutine(SpawnEnemies());
+    }
+
 }
