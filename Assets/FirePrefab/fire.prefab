@@ -90,8 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5689c45cbc28c6f4fbec736315ffeb8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 13
-  viewAngle: 127
+  viewRadius: 20
+  viewAngle: 360
   targetMask:
     serializedVersion: 2
     m_Bits: 128
@@ -103,5 +103,4 @@ MonoBehaviour:
     type: 3}
   maxBullet: 5
   Collider: {fileID: 101839776791977403}
-  Damage: 10
   AttackDelay: 0.5

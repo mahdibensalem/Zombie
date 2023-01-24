@@ -37,7 +37,6 @@ public class characterSave : MonoBehaviour
 
 
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, enemyMask); 
-        Debug.Log("targetsInViewRadius.Length " + targetsInViewRadius.Length);
         if (targetsInViewRadius.Length!=0)
         {
             canReachCar = false;

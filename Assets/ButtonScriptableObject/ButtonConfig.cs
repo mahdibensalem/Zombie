@@ -39,10 +39,12 @@ public class ButtonConfig : MonoBehaviour
 
     void action()
     {
-
         Time.timeScale = 1;
         imageIndex++;
         image.sprite = myconfig.images[imageIndex];
+
+
+
         if (myconfig.action == ButtonScriptableObject.actionMethode.addHealth)
         {
             CarMouvment.instance.health += addedValue;
@@ -64,6 +66,12 @@ public class ButtonConfig : MonoBehaviour
     public void OnExit()
     {
         button.transform.parent.gameObject.SetActive(false);
+        if (imageIndex >= myconfig.images.Count-1 )
+        {
+
+            Destroy(gameObject);
+            return;
+        }
     }
 
 }

@@ -1,5 +1,5 @@
-using TMPro;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class progressLVL : MonoBehaviour
@@ -38,18 +38,22 @@ public class progressLVL : MonoBehaviour
     }
     public void OnFillProgressXP(float amount)
     {
-        if (progressXP.fillAmount <= 0.9f)
+        if (updatePanel != null)
         {
-            progressXP.fillAmount += amount / MaxXP;
+            if (progressXP.fillAmount <= 0.9f)
+            {
+                progressXP.fillAmount += amount / MaxXP;
 
-        }
-        else
-        {
-            progressXP.fillAmount = 0f;
-            XpTXT.text = (float.Parse((XpTXT.text)) + 1).ToString();
-            updatePanel.SetActive(true);
+            }
+            else
+            {
+                progressXP.fillAmount = 0f;
+                XpTXT.text = (float.Parse((XpTXT.text)) + 1).ToString();
+
+                updatePanel.SetActive(true);
 
 
+            }
         }
         if (numberOfWave % 2 == 0)
         {
@@ -62,7 +66,7 @@ public class progressLVL : MonoBehaviour
         arrow.SetActive(false);
         missionTXT.text = "KILL " + NumberofZombiesInwave[0] + " Zombies";
         NumberofZombiesInwave[0]--;
-        if (NumberofZombiesInwave[0] ==0)
+        if (NumberofZombiesInwave[0] == 0)
         {
             numberOfWave++;
             NumberofZombiesInwave.Remove(0);

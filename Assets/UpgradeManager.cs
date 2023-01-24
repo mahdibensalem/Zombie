@@ -1,12 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class UpgradeManager : MonoBehaviour
 {
-    [SerializeField] GameObject UpgradeButtons ;
+    [SerializeField] GameObject UpgradeButtons;
     [SerializeField] List<ButtonScriptableObject> Upgrades;
 
     int y = 0;
@@ -14,9 +12,9 @@ public class UpgradeManager : MonoBehaviour
     //public List<GameObject> _UpgradeButttttttons ;
     private void Awake()
     {
-        for (int i =0; i < Upgrades.Count; i++)
+        for (int i = 0; i < Upgrades.Count; i++)
         {
-            GameObject button= Instantiate(UpgradeButtons,transform);
+            GameObject button = Instantiate(UpgradeButtons, transform);
             button.GetComponent<ButtonConfig>().myconfig = Upgrades[i];
             button.SetActive(false);
         }
@@ -32,38 +30,55 @@ public class UpgradeManager : MonoBehaviour
     }
     public void OnEnable()
     {
+
+        int childCount = transform.childCount;
+        if (childCount == 0)
+        {
+            Time.timeScale = 1;
+            Destroy(gameObject);
+            return;
+        }
+
+        if (childCount > 3)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+
+                transform.GetChild(y).gameObject.SetActive(true);
+                y++;
+                y = y % (Upgrades.Count - 1);
+            }
+        }
+        else
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(true);
+            }
         Time.timeScale = 0f;
-        for (int i = 0; i < 3; i++)
-        {
-            transform.GetChild(y).gameObject.SetActive(true);
-            y ++;
-            y = y % (Upgrades.Count-1);
-        }
     }
-    private void OnDisable()
+    public void OnDisable()
     {
-        for (int i = 0; i < Upgrades.Count; i++)
+        foreach (Transform child in transform)
         {
-            transform.GetChild(i).gameObject.SetActive(false);
+            child.gameObject.SetActive(false);
 
         }
 
-
     }
-        //void GetUpdgrade()
-        //{
+    //void GetUpdgrade()
+    //{
 
-        //    int random;
-        //    int upgradeLength = UpgradeButtons.Count;
-        //    for (int i = 0; i<3; i++)
-        //    {
-        //         random = Random.Range(0, 3) ;
-        //        GameObject button= Instantiate(_UpgradeButttttttons[random], transform);
-        //        _UpgradeButttttttons.Remove(_UpgradeButttttttons[random]);
-        //    }
-        //    _UpgradeButttttttons = UpgradeButtons;
+    //    int random;
+    //    int upgradeLength = UpgradeButtons.Count;
+    //    for (int i = 0; i<3; i++)
+    //    {
+    //         random = Random.Range(0, 3) ;
+    //        GameObject button= Instantiate(_UpgradeButttttttons[random], transform);
+    //        _UpgradeButttttttons.Remove(_UpgradeButttttttons[random]);
+    //    }
+    //    _UpgradeButttttttons = UpgradeButtons;
 
-        //}
+    //}
 
 
-    }
+}
