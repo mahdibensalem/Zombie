@@ -21,6 +21,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
     public float carBody;
     public float attackSpeed;
     public Image healthBar;
+    public Image shieldBar;
     //public BulletAttackRadius Fire;
     bool canDamage;
     // Variables
@@ -151,6 +152,11 @@ public class CarMouvment : MonoBehaviour, IDamageable
     }
     public void UpgradeHealthBar()
     {
+        if (health > maxHealth)
+        {
+            shieldBar.fillAmount = (health % maxHealth) / maxHealth;
+        }
+        else
         healthBar.fillAmount = health / maxHealth;
 
     }

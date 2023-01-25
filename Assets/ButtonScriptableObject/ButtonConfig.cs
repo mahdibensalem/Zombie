@@ -12,21 +12,22 @@ public class ButtonConfig : MonoBehaviour
     Button button;
     public Image image;
     public List<Sprite> images;
-    int addedValue;
-
+    float addedValue;
+    int addedValueInt;
 
 
     int imageIndex ;
     private void Awake()
     {
         imageIndex = 0;
-
+        addedValueInt = (int)addedValue;
         button = GetComponent<Button>();
         image = GetComponent<Image>();
 
     }
     private void Start()
     {
+
         Description.text = myconfig.description;
         image.sprite = myconfig.images[imageIndex];
         addedValue = myconfig.addedValue;
@@ -51,15 +52,26 @@ public class ButtonConfig : MonoBehaviour
             CarMouvment.instance.health += addedValue;
             CarMouvment.instance.UpgradeHealthBar();
         }
-//        else if (myconfig.action == ButtonScriptableObject.actionMethode.addAttackSpeed)
-//        {
-//            BulletAttackRadius.Instance.AttackDelay -= (addedValue / 10);
-//            BulletAttackRadius.Instance.StopCoroutine(BulletAttackRadius.Instance.Attack());
-///////////////////////////////////////////////////////
-//        }
+        else if (myconfig.action == ButtonScriptableObject.actionMethode.addAttackSpeed)
+        {
+
+            BulletAttackRadius.Instance.StopCoroutine(BulletAttackRadius.Instance.Attack());
+            BulletAttackRadius.Instance.AttackDelay -= addedValue;
+            BulletAttackRadius.Instance.StartCoroutine(BulletAttackRadius.Instance.Attack());
+
+            ///////////////////////////////////////////////////
+        }
         else if (myconfig.action == ButtonScriptableObject.actionMethode.addDamage)
         {
-            BulletAttackRadius.Instance.AddDamage();
+            BulletAttackRadius.Instance.AddDamage(addedValueInt);
+        }
+        else if (myconfig.action == ButtonScriptableObject.actionMethode.addRange)
+        {
+            BulletAttackRadius.Instance.AddRangeRadius(addedValueInt);
+        }
+        else if (myconfig.action == ButtonScriptableObject.actionMethode.addViewAngle)
+        {
+            BulletAttackRadius.Instance.AddAngle(addedValueInt);
         }
         
         OnExit();

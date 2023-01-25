@@ -73,6 +73,7 @@ public class Enemy : PoolableObject, IDamageable
         if (Health <= 0)
         {
             GetComponent<CapsuleCollider>().enabled = false;
+
             StartCoroutine(OnDie());
         }
     }

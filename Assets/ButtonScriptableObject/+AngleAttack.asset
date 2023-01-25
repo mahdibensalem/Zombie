@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86524334b748473458187dd635a529ed, type: 3}
-  m_Name: +Health
+  m_Name: +AngleAttack
   m_EditorClassIdentifier: 
   images:
   - {fileID: 21300000, guid: c8a69ecdf54ac8e4b873466605de27ff, type: 3}
   - {fileID: 21300000, guid: cdb88fdb0cf46b244a667edaff21c7df, type: 3}
   - {fileID: 21300000, guid: c9ed6d6ea2f9657409bfa068d4846139, type: 3}
-  description: +Health
-  action: 1
-  addedValue: 33
+  description: Add View Angle
+  action: 4
+  addedValue: 30

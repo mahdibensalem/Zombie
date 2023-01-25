@@ -6,9 +6,9 @@ using UnityEngine;
 public class BulletAttackRadius : MonoBehaviour
 {
     public static BulletAttackRadius Instance;
-    public float viewRadius;
+    public int viewRadius;
     [Range(0, 360)]
-    public float viewAngle;
+    public int viewAngle;
     public LayerMask targetMask;
     public LayerMask obstacleMask;
     public List<Transform> visibleTargets = new List<Transform>();
@@ -54,9 +54,17 @@ public class BulletAttackRadius : MonoBehaviour
     {
         FindVisibleTargets();
     }
-    public void AddDamage()
+    public void AddDamage(int value)
     {
-        BulletPool.AddDamagePoolableObject(10);
+        BulletPool.AddDamagePoolableObject(value);
+    }
+    public void AddRangeRadius(int value)
+    {
+        viewRadius+=value;
+    }
+    public void AddAngle(int value)
+    {
+        viewAngle+=value;
     }
 
     //void Attacke()
