@@ -41,6 +41,7 @@ public class ButtonConfig : MonoBehaviour
     {
         Time.timeScale = 1;
         imageIndex++;
+        if(imageIndex <= myconfig.images.Count-1)
         image.sprite = myconfig.images[imageIndex];
 
 
@@ -66,7 +67,7 @@ public class ButtonConfig : MonoBehaviour
     public void OnExit()
     {
         button.transform.parent.gameObject.SetActive(false);
-        if (imageIndex >= myconfig.images.Count-1 )
+        if (imageIndex >= myconfig.images.Count )
         {
 
             Destroy(gameObject);

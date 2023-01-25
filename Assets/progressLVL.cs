@@ -55,6 +55,7 @@ public class progressLVL : MonoBehaviour
 
             }
         }
+        else progressXP.fillAmount = 1f;
         if (numberOfWave % 2 == 0)
         {
             OnKillMissionUpdate();
