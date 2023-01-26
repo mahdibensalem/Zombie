@@ -38,7 +38,7 @@ public class ObjectPool
     {
         foreach(PoolableObject fire in MYAllObjectsPool)
         {
-            fire.gameObject.GetComponent<Bullet>().Damage = amount;
+            fire.gameObject.GetComponent<Bullet>().Damage += amount;
         }
 
     }

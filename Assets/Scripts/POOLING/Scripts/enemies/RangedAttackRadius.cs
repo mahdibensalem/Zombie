@@ -56,7 +56,7 @@ public class RangedAttackRadius : AttackRadius
                 if (poolableObject != null)
                 {
                     bullet = poolableObject.GetComponent<Bullet>();
-
+                    
                     bullet.transform.position = transform.position ;
                     bullet.transform.rotation = Agent.transform.rotation;
                     //bullet.transform.localRotation = Quaternion.LookRotation(-targetDamageable.GetTransform().forward);

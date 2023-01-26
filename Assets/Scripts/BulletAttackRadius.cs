@@ -20,7 +20,7 @@ public class BulletAttackRadius : MonoBehaviour
 
     private ObjectPool BulletPool;
     private Bullet bullet;
-
+    public Transform rocket;
     public SphereCollider Collider;
 
     public List<IDamageable> Damageables = new List<IDamageable>();
@@ -40,6 +40,7 @@ public class BulletAttackRadius : MonoBehaviour
     void Start()
     {
         Instance = this;
+        rocket = gameObject.transform.parent.GetChild(0);
     }
 
     IEnumerator FindTargetsWithDelay(float delay)
@@ -144,7 +145,11 @@ public class BulletAttackRadius : MonoBehaviour
                 {
                     bullet = poolableObject.GetComponent<Bullet>();
 
+                    Vector3 rocketRotation = closestDamageable.GetTransform().position;
+                    rocketRotation.y =3f;
+
                     bullet.transform.position = transform.position;
+                    rocket.LookAt(rocketRotation);
                     bullet.transform.LookAt(closestDamageable.GetTransform().position);
                     //bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
                 }

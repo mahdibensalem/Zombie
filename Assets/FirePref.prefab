@@ -131,4 +131,4 @@ MonoBehaviour:
   AutoDestroyTime: 2
   RigidBody: {fileID: 5720131266675317761}
   Speed: 80
-  Damage: 2
+  Damage: 1

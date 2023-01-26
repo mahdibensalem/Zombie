@@ -6,7 +6,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
 {
     public static CarMouvment instance;
     [SerializeField] FloatingJoystick joystick;
-
+    GameObject myCar;
     public float MoveSpeed = 50;
     public float MaxSpeed = 15;
     public float SteerAngle = 20;
@@ -31,7 +31,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        GameObject myCar = Instantiate(myCars[PlayerPrefs.GetInt("SelectedItem")], transform);
+        myCar = Instantiate(myCars[PlayerPrefs.GetInt("SelectedItem")], transform);
         //myCar.transform.position = myPosCar[PlayerPrefs.GetInt("SelectedItem")];
         Instantiate(fire, myCar.transform.GetChild(0));
 
@@ -51,13 +51,17 @@ public class CarMouvment : MonoBehaviour, IDamageable
         else
         {
             carBody = ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
-            carLevelsData[(ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedHealthLevel)].body; 
+            carLevelsData[(ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedBodyLevel)].body;
+            for(int i =0; i <= (ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedBodyLevel); i++)
+            {
+                myCar.transform.GetChild(i + 1).gameObject.SetActive(true); 
+            }
 
             health = ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
             carLevelsData[(ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedHealthLevel)].health; ;
 
             attackSpeed = ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
-            carLevelsData[(ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedHealthLevel)].attackSpeed; ;
+            carLevelsData[(ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedAttackSpeedLevel)].attackSpeed; ;
 
         }
     }
@@ -158,7 +162,5 @@ public class CarMouvment : MonoBehaviour, IDamageable
         }
         else
         healthBar.fillAmount = health / maxHealth;
-
     }
-
 }
