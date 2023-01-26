@@ -20,7 +20,7 @@ public class ButtonConfig : MonoBehaviour
     private void Awake()
     {
         imageIndex = 0;
-        addedValueInt = (int)addedValue;
+
         button = GetComponent<Button>();
         image = GetComponent<Image>();
 
@@ -31,6 +31,7 @@ public class ButtonConfig : MonoBehaviour
         Description.text = myconfig.description;
         image.sprite = myconfig.images[imageIndex];
         addedValue = myconfig.addedValue;
+        addedValueInt = (int)addedValue;
         button.onClick.AddListener(action);
         foreach (Sprite sprite in myconfig.images)
         {
