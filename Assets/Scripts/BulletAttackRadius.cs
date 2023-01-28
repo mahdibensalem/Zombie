@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SphereCollider))]
+//[RequireComponent(typeof(SphereCollider))]
 public class BulletAttackRadius : MonoBehaviour
 {
     public static BulletAttackRadius Instance;
@@ -20,13 +20,12 @@ public class BulletAttackRadius : MonoBehaviour
     Mesh viewMesh;
 
 
-    public Bullet BulletPrefab;
+    public Bullet1 BulletPrefab;
     public int maxBullet = 5;
 
     private ObjectPool BulletPool;
-    private Bullet bullet;
+    private Bullet1 bullet;
     public Transform rocket;
-    public SphereCollider Collider;
 
     public List<IDamageable> Damageables = new List<IDamageable>();
 
@@ -37,7 +36,6 @@ public class BulletAttackRadius : MonoBehaviour
 
     protected virtual void Awake()
     {
-        Collider = GetComponent<SphereCollider>();
         BulletPool = ObjectPool.CreateInstance(transform, BulletPrefab, maxBullet);
         PoolableObject poolableObject = BulletPool.GetObject();
 
@@ -92,23 +90,23 @@ public class BulletAttackRadius : MonoBehaviour
             float angle = transform.eulerAngles.y - viewAngle / 2 + stepAngleSize * i;
             ViewCastInfo newViewCast = ViewCast(angle);
 
-            //if (i > 0)
-            //{
-            //    bool edgeDstThresholdExceeded = Mathf.Abs(oldViewCast.dst - newViewCast.dst) > edgeDstThreshold;
-            //    if (oldViewCast.hit != newViewCast.hit || (oldViewCast.hit && newViewCast.hit && edgeDstThresholdExceeded))
-            //    {
-            //        EdgeInfo edge = FindEdge(oldViewCast, newViewCast);
-            //        if (edge.pointA != Vector3.zero)
-            //        {
-            //            viewPoints.Add(edge.pointA);
-            //        }
-            //        if (edge.pointB != Vector3.zero)
-            //        {
-            //            viewPoints.Add(edge.pointB);
-            //        }
-            //    }
+            if (i > 0)
+            {
+                bool edgeDstThresholdExceeded = Mathf.Abs(oldViewCast.dst - newViewCast.dst) > edgeDstThreshold;
+                if (oldViewCast.hit != newViewCast.hit || (oldViewCast.hit && newViewCast.hit && edgeDstThresholdExceeded))
+                {
+                    EdgeInfo edge = FindEdge(oldViewCast, newViewCast);
+                    if (edge.pointA != Vector3.zero)
+                    {
+                        viewPoints.Add(edge.pointA);
+                    }
+                    if (edge.pointB != Vector3.zero)
+                    {
+                        viewPoints.Add(edge.pointB);
+                    }
+                }
 
-            //}
+            }
 
 
             viewPoints.Add(newViewCast.point);
@@ -303,7 +301,7 @@ public class BulletAttackRadius : MonoBehaviour
                 PoolableObject poolableObject = BulletPool.GetObject();
                 if (poolableObject != null)
                 {
-                    bullet = poolableObject.GetComponent<Bullet>();
+                    bullet = poolableObject.GetComponent<Bullet1>();
 
                     Vector3 rocketRotation = closestDamageable.GetTransform().position;
                     rocketRotation.y = 3f;
