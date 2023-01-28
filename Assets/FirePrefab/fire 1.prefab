@@ -94,7 +94,7 @@ MonoBehaviour:
     type: 3}
   maxBullet: 5
   rocket: {fileID: 0}
-  AttackDelay: 0.5
+  AttackDelay: 2
 --- !u!1 &2293066978584645685
 GameObject:
   m_ObjectHideFlags: 0

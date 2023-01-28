@@ -121,11 +121,11 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 128
-  radiusHit: 17
+  radiusHit: 15
   MaxHits: 25
   MaxDamage: 5
   MinDamage: 1
-  ExplosiveForce: 200
+  ExplosiveForce: 10
 --- !u!135 &2016302335683139170
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -137,5 +137,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}

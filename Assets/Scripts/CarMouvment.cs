@@ -46,7 +46,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
         {
             carBody = 1;
             maxHealth=health = 100;
-            attackSpeed = 0.5f;
+            attackSpeed = 1f;
         }
         else
         {
@@ -144,7 +144,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
                 enemy.Movement.StopAllCoroutines();
                 enemy.GetComponent<NavMeshAgent>().enabled = false;
                 enemy.GetComponent<Rigidbody>().isKinematic = false;
-                enemy.rb.AddForce(5 * direction * rb.velocity.magnitude);
+                enemy.rb.AddForce(50 * direction * rb.velocity.magnitude);
                 enemy.TakeDamage(enemy.Health);
             }
         }

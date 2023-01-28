@@ -49,11 +49,10 @@ public class Bullet1 : PoolableObject
 
             int hits = Physics.OverlapSphereNonAlloc(transform.position, radiusHit, Hits, targetMask);
             List<IDamageable> Damageables = new List<IDamageable>();
-            Collider[] targetsInViewRadius = Hits;
             for(int i = 0; i < hits; i++)
             {
-                Damageables.Add(targetsInViewRadius[i].GetComponent<IDamageable>());
-                Damageables[i].TakeDamage(10);
+                Damageables.Add(Hits[i].GetComponent<IDamageable>());
+
                 Debug.Log(Damageables[i]);
 
             }
@@ -62,18 +61,18 @@ public class Bullet1 : PoolableObject
                 //IDamageable Damageable = targetsInViewRadius[i].GetComponent<IDamageable>();
                 if (Hits[i].TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
                 {
-                    Hits[i].GetComponent<NavMeshAgent>().enabled = false;
-                    rigidbody.isKinematic = false;
                     float distance = Vector3.Distance(transform.position, Hits[i].transform.position);
+                    rigidbody.AddExplosionForce(ExplosiveForce, transform.position, radiusHit);
+                    Damageables[i].TakeDamage(Mathf.FloorToInt(Mathf.Lerp(MaxDamage, MinDamage, distance / radiusHit)));
+                    Debug.Log($"Would hit {rigidbody.name} for {Mathf.FloorToInt(Mathf.Lerp(MaxDamage, MinDamage, distance / radiusHit))}");
+                    //if (Hits[i].GetComponent<Enemy>().Health<=0)
+                    //{
 
-                    if (!Physics.Raycast(transform.position, (Hits[i].transform.position - transform.position).normalized, distance))
-                    {
-                        rigidbody.AddExplosionForce(ExplosiveForce, transform.position, radiusHit);
-                        Debug.Log($"Would hit {rigidbody.name} for {Mathf.FloorToInt(Mathf.Lerp(MaxDamage, MinDamage, distance / radiusHit))}");
-                        //Damageable.TakeDamage(Mathf.FloorToInt(Mathf.Lerp(MaxDamage, MinDamage, distance / radiusHit)));
-                        //Damageable.TakeDamage(Damage);
 
-                    }
+                    //    //Damageable.TakeDamage(Mathf.FloorToInt(Mathf.Lerp(MaxDamage, MinDamage, distance / radiusHit)));
+                    //    //Damageable.TakeDamage(Damage);
+
+                    //}
                 }
             }
 

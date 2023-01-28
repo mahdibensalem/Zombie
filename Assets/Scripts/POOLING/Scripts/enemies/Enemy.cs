@@ -80,6 +80,7 @@ public class Enemy : PoolableObject, IDamageable
     IEnumerator OnDie()
     {
         Agent.enabled = false;
+        rb.isKinematic = false;
         animator.SetTrigger("Dead");
         progressLVL.Instance.OnFillProgressXP(xp);
         yield return new WaitForSeconds(2);

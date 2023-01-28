@@ -38,16 +38,18 @@ public class BulletAttackRadius : MonoBehaviour
     {
         BulletPool = ObjectPool.CreateInstance(transform, BulletPrefab, maxBullet);
         PoolableObject poolableObject = BulletPool.GetObject();
+        Instance = this;
 
     }
     void Start()
     {
-        Instance = this;
+
         rocket = gameObject.transform.parent.GetChild(0);
         viewMesh = new Mesh();
         viewMesh.name = "View Mesh";
         viewMeshFilter.mesh = viewMesh;
         viewMeshFilter.gameObject.transform.position = Vector3.zero;
+        StartCoroutine(FindTargetsWithDelay(0.5f));
     }
 
     IEnumerator FindTargetsWithDelay(float delay)
@@ -58,10 +60,10 @@ public class BulletAttackRadius : MonoBehaviour
             FindVisibleTargets();
         }
     }
-    private void Update()
-    {
-        FindVisibleTargets();
-    }
+    //private void Update()
+    //{
+    //    FindVisibleTargets();
+    //}
     public void AddDamage(int value)
     {
         BulletPool.AddDamagePoolableObject(value);
