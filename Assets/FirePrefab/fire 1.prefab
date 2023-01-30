@@ -90,7 +90,7 @@ MonoBehaviour:
   edgeResolveIterations: 10
   edgeDstThreshold: 0.5
   viewMeshFilter: {fileID: 1136072287395902148}
-  BulletPrefab: {fileID: 2603442851039926358, guid: bb8d404d30b30b040b1a3da801b31838,
+  BulletPrefab: {fileID: 2744256583146969121, guid: bb8d404d30b30b040b1a3da801b31838,
     type: 3}
   maxBullet: 5
   rocket: {fileID: 0}

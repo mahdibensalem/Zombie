@@ -106,10 +106,9 @@ MonoBehaviour:
   viewMeshFilter: {fileID: 1136072287395902148}
   BulletPrefab: {fileID: 8835752354225473289, guid: 51294970d20a9024d9ae3c4c96ceed90,
     type: 3}
-  maxBullet: 5
+  maxBullet: 15
   rocket: {fileID: 0}
-  Collider: {fileID: 101839776791977403}
-  AttackDelay: 0.5
+  AttackDelay: 0.2
 --- !u!1 &2293066978584645685
 GameObject:
   m_ObjectHideFlags: 0

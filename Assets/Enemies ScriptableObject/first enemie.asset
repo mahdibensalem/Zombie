@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: first enemie
   m_EditorClassIdentifier: 
   Prefab: {fileID: 4790510530194872899, guid: 1cf327d6935c89748b913925d8face4e, type: 3}
-  health: 1
+  health: 3
   AttackConfiguration: {fileID: 11400000, guid: 7324afee41a9d0043ad8d5758e5d384e,
     type: 2}
-  XP: 0.01
+  XP: 0.2
   speed: 10

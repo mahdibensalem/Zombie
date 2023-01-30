@@ -58,25 +58,15 @@ public class Bullet1 : PoolableObject
             }
             for (int i = 0; i < hits; i++)
             {
-                //IDamageable Damageable = targetsInViewRadius[i].GetComponent<IDamageable>();
                 if (Hits[i].TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
                 {
                     float distance = Vector3.Distance(transform.position, Hits[i].transform.position);
-                    rigidbody.AddExplosionForce(ExplosiveForce, transform.position, radiusHit);
                     Damageables[i].TakeDamage(Mathf.FloorToInt(Mathf.Lerp(MaxDamage, MinDamage, distance / radiusHit)));
+                    rigidbody.AddExplosionForce(ExplosiveForce, transform.position, radiusHit);
                     Debug.Log($"Would hit {rigidbody.name} for {Mathf.FloorToInt(Mathf.Lerp(MaxDamage, MinDamage, distance / radiusHit))}");
-                    //if (Hits[i].GetComponent<Enemy>().Health<=0)
-                    //{
 
-
-                    //    //Damageable.TakeDamage(Mathf.FloorToInt(Mathf.Lerp(MaxDamage, MinDamage, distance / radiusHit)));
-                    //    //Damageable.TakeDamage(Damage);
-
-                    //}
                 }
             }
-
-            damageable.TakeDamage(Damage);
             Disable();
         }
     }

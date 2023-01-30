@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections.Generic;
 [RequireComponent(typeof(Rigidbody))]
 public class Bullet : PoolableObject
 {
@@ -8,12 +8,22 @@ public class Bullet : PoolableObject
     public float Speed = 80f;
     public int Damage = 1;
     protected Transform Target;
+    public BulletType bulletType;
 
 
+
+    public LayerMask targetMask;
+    public float radiusHit;
+    Collider[] Hits;
+    public int MaxHits = 25;
+    public int MaxDamage = 5;
+    public int MinDamage = 1;
+    public float ExplosiveForce;
     protected const string DISABLE_METHOD_NAME = "Disable";
     private void Awake()
     {
         RigidBody = GetComponent<Rigidbody>();
+        Hits = new Collider[MaxHits];
     }
     private void Update()
     {
@@ -36,8 +46,37 @@ public class Bullet : PoolableObject
     {
         IDamageable damageable;
         if (other.TryGetComponent<IDamageable>(out damageable))
-        {   if (other.CompareTag("Player")) return;
-            damageable.TakeDamage(Damage);
+        {
+            if (other.CompareTag("Player")) return;
+
+            if (bulletType == BulletType.Type1) { damageable.TakeDamage(Damage); }
+
+            else if(bulletType == BulletType.Type2)
+            {
+
+
+                int hits = Physics.OverlapSphereNonAlloc(transform.position, radiusHit, Hits, targetMask);
+                List<IDamageable> Damageables = new List<IDamageable>();
+                Debug.Log($"Would hit " + hits) ;
+                for (int i = 0; i < hits; i++)
+                {
+                    Damageables.Add(Hits[i].GetComponent<IDamageable>());
+
+                    Debug.Log(Damageables[i]);
+
+                }
+                for (int i = 0; i < hits; i++)
+                {
+                    //if (Hits[i].TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
+                    //{
+                        float distance = Vector3.Distance(transform.position, Hits[i].transform.position);
+                        Damageables[i].TakeDamage(Mathf.FloorToInt(Mathf.Lerp(MaxDamage, MinDamage, distance / radiusHit)));
+                        GetComponent<Rigidbody>().AddExplosionForce(ExplosiveForce, transform.position, radiusHit);
+                        Debug.Log($"Would hit {GetComponent<Rigidbody>().name} for {Mathf.FloorToInt(Mathf.Lerp(MaxDamage, MinDamage, distance / radiusHit))}");
+
+                    //}
+                }
+            }
             Disable();
         }
     }
@@ -47,5 +86,10 @@ public class Bullet : PoolableObject
         CancelInvoke(DISABLE_METHOD_NAME);
         RigidBody.velocity = Vector3.zero;
         gameObject.SetActive(false);
+    }
+    public enum BulletType
+    {
+        Type1,
+        Type2
     }
 }

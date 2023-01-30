@@ -7,6 +7,7 @@ public class ObjectPool
     private int Size;
     private List<PoolableObject> AvailableObjectsPool;
     private List<PoolableObject> MYAllObjectsPool;
+
     private ObjectPool(PoolableObject Prefab, int Size)
     {
         this.Prefab = Prefab;
@@ -21,7 +22,7 @@ public class ObjectPool
         GameObject poolGameObject = new GameObject(Prefab + " Pool");
         //poolGameObject.transform.parent = parent;
         pool.CreateObjects(poolGameObject);
-
+        
         return pool;
     }
 
@@ -36,9 +37,11 @@ public class ObjectPool
     }
     public void AddDamagePoolableObject(int amount)
     {
-        foreach(PoolableObject fire in MYAllObjectsPool)
+        foreach (PoolableObject fire in MYAllObjectsPool)
         {
             fire.gameObject.GetComponent<Bullet>().Damage += amount;
+            //else if (fire.gameObject.TryGetComponent<Bullet1>(out Bullet1 bullet1)) bullet1.Damage += amount;
+            
         }
 
     }
@@ -56,7 +59,6 @@ public class ObjectPool
         return instance;
 
     }
-
     public void ReturnObjectToPool(PoolableObject Object)
     {
         AvailableObjectsPool.Add(Object);

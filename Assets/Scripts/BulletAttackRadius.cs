@@ -20,11 +20,11 @@ public class BulletAttackRadius : MonoBehaviour
     Mesh viewMesh;
 
 
-    public Bullet1 BulletPrefab;
+    public Bullet BulletPrefab;
     public int maxBullet = 5;
 
     private ObjectPool BulletPool;
-    private Bullet1 bullet;
+    private Bullet bullet;
     public Transform rocket;
 
     public List<IDamageable> Damageables = new List<IDamageable>();
@@ -223,55 +223,54 @@ public class BulletAttackRadius : MonoBehaviour
 
 
 
-
     //void Attacke()
     //{
     //    IDamageable closestDamageable = null;
     //    float closestDistance = float.MaxValue;
 
-    //    if (Damageables.Count > 0)
-    //    {
-    //        Debug.Log("attack");
-    //        for (int i = 0; i < Damageables.Count; i++)
-    //        {
-    //            Transform damageableTransform = Damageables[i].GetTransform();
-    //            float distance = Vector3.Distance(transform.localPosition, damageableTransform.localPosition);
+        //    if (Damageables.Count > 0)
+        //    {
+        //        Debug.Log("attack");
+        //        for (int i = 0; i < Damageables.Count; i++)
+        //        {
+        //            Transform damageableTransform = Damageables[i].GetTransform();
+        //            float distance = Vector3.Distance(transform.localPosition, damageableTransform.localPosition);
 
-    //            if (distance < closestDistance)
-    //            {
-    //                closestDistance = distance;
-    //                closestDamageable = Damageables[i];
-    //            }
-    //        }
+        //            if (distance < closestDistance)
+        //            {
+        //                closestDistance = distance;
+        //                closestDamageable = Damageables[i];
+        //            }
+        //        }
 
-    //        if (closestDamageable != null)
-    //        {
-    //            transform.LookAt(closestDamageable.GetTransform().forward);
-    //            Debug.Log("ee2");
-    //            PoolableObject poolableObject = BulletPool.GetObject();
-    //            if (poolableObject != null)
-    //            {
-    //                bullet = poolableObject.GetComponent<Bullet>();
+        //        if (closestDamageable != null)
+        //        {
+        //            transform.LookAt(closestDamageable.GetTransform().forward);
+        //            Debug.Log("ee2");
+        //            PoolableObject poolableObject = BulletPool.GetObject();
+        //            if (poolableObject != null)
+        //            {
+        //                bullet = poolableObject.GetComponent<Bullet>();
 
-    //                bullet.transform.position = transform.position;
-    //                //bullet.transform.localRotation = Quaternion.LookRotation(-closestDamageable.GetTransform().forward);
-    //                bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
-    //            }
-    //            //OnAttack?.Invoke(closestDamageable);
-    //            //closestDamageable.TakeDamage(Damage);
-    //        }
+        //                bullet.transform.position = transform.position;
+        //                //bullet.transform.localRotation = Quaternion.LookRotation(-closestDamageable.GetTransform().forward);
+        //                bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
+        //            }
+        //            //OnAttack?.Invoke(closestDamageable);
+        //            //closestDamageable.TakeDamage(Damage);
+        //        }
 
-    //        closestDamageable = null;
-    //        closestDistance = float.MaxValue;
+        //        closestDamageable = null;
+        //        closestDistance = float.MaxValue;
 
-    //        Damageables.RemoveAll(DisabledDamageables);
-    //    }
+        //        Damageables.RemoveAll(DisabledDamageables);
+        //    }
 
-    //    AttackCoroutine = null;
+        //    AttackCoroutine = null;
 
 
-    //}
-    private void LateUpdate()
+        //}
+        private void LateUpdate()
     {
         DrawFieldOfView();
     }
@@ -303,7 +302,7 @@ public class BulletAttackRadius : MonoBehaviour
                 PoolableObject poolableObject = BulletPool.GetObject();
                 if (poolableObject != null)
                 {
-                    bullet = poolableObject.GetComponent<Bullet1>();
+                    bullet = poolableObject.GetComponent<Bullet>();
 
                     Vector3 rocketRotation = closestDamageable.GetTransform().position;
                     rocketRotation.y = 3f;
