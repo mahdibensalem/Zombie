@@ -2082,7 +2082,7 @@ MonoBehaviour:
         bodyUnlockCost: 40000
         body: 40
         attackSpeedUnlockCost: 40000
-        attackSpeed: 0.6
+        attackSpeed: 2
       - helthUnlockCost: 70000
         health: 100
         bodyUnlockCost: 70000

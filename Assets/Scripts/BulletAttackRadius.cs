@@ -49,15 +49,15 @@ public class BulletAttackRadius : MonoBehaviour
         viewMesh.name = "View Mesh";
         viewMeshFilter.mesh = viewMesh;
         viewMeshFilter.gameObject.transform.position = Vector3.zero;
-        StartCoroutine(FindTargetsWithDelay(0.5f));
+        AttackCoroutine= StartCoroutine(FindTargetsWithDelay());
     }
 
-    IEnumerator FindTargetsWithDelay(float delay)
+    IEnumerator FindTargetsWithDelay()
     {
         while (true)
         {
-            yield return new WaitForSeconds(delay);
             FindVisibleTargets();
+            yield return new WaitForSeconds(AttackDelay);
         }
     }
     //private void Update()
@@ -81,6 +81,215 @@ public class BulletAttackRadius : MonoBehaviour
 
 
 
+
+
+
+
+
+
+
+
+
+
+    void Attacke()
+    {
+        IDamageable closestDamageable = null;
+        float closestDistance = float.MaxValue;
+
+        if (Damageables.Count > 0)
+        {
+            Debug.Log("attack");
+            for (int i = 0; i < Damageables.Count; i++)
+            {
+                Transform damageableTransform = Damageables[i].GetTransform();
+                float distance = Vector3.Distance(transform.localPosition, damageableTransform.localPosition);
+
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestDamageable = Damageables[i];
+                }
+            }
+
+            if (closestDamageable != null)
+            {
+                transform.LookAt(closestDamageable.GetTransform().forward);
+                Debug.Log("ee2");
+                PoolableObject poolableObject = BulletPool.GetObject();
+                if (poolableObject != null)
+                {
+                    bullet = poolableObject.GetComponent<Bullet>();
+
+                    Vector3 rocketRotation = closestDamageable.GetTransform().position;
+                    rocketRotation.y = 3f;
+
+                    bullet.transform.position = transform.position;
+                    rocket.LookAt(rocketRotation);
+                    bullet.transform.LookAt(closestDamageable.GetTransform().position);
+                }
+                //OnAttack?.Invoke(closestDamageable);
+                //closestDamageable.TakeDamage(Damage);
+            }
+
+            closestDamageable = null;
+            closestDistance = float.MaxValue;
+
+            Damageables.RemoveAll(DisabledDamageables);
+        }
+
+        AttackCoroutine = null;
+
+
+    }
+
+    public IEnumerator Attack()
+    {
+        //WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
+        
+
+        IDamageable closestDamageable = null;
+        float closestDistance = float.MaxValue;
+
+        while (Damageables.Count > 0)
+        {
+            for (int i = 0; i < Damageables.Count; i++)
+            {
+                Transform damageableTransform = Damageables[i].GetTransform();
+                float distance = Vector3.Distance(transform.position, damageableTransform.position);
+
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestDamageable = Damageables[i];
+                }
+            }
+
+            if (closestDamageable != null)
+            {
+                //transform.LookAt(closestDamageable.GetTransform().position);
+                PoolableObject poolableObject = BulletPool.GetObject();
+                if (poolableObject != null)
+                {
+                    bullet = poolableObject.GetComponent<Bullet>();
+
+                    Vector3 rocketRotation = closestDamageable.GetTransform().position;
+                    rocketRotation.y = 3f;
+
+                    bullet.transform.position = transform.position;
+                    rocket.LookAt(rocketRotation);
+                    bullet.transform.LookAt(closestDamageable.GetTransform().position);
+                    //bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
+                }
+                //OnAttack?.Invoke(closestDamageable);
+                //closestDamageable.TakeDamage(Damage);
+            }
+
+            closestDamageable = null;
+            closestDistance = float.MaxValue;
+
+            yield return null;
+
+            Damageables.RemoveAll(DisabledDamageables);
+        }
+
+        AttackCoroutine = null;
+    }
+    void FindVisibleTargets()
+    {
+        Damageables.Clear();
+        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
+
+        for (int i = 0; i < targetsInViewRadius.Length; i++)
+        {
+            IDamageable damageable = targetsInViewRadius[i].GetComponent<IDamageable>();
+            Transform target = damageable.GetTransform();
+            Vector3 dirToTarget = (target.position - transform.position).normalized;
+            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+            {
+                float dstToTarget = Vector3.Distance(transform.position, target.position);
+
+                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
+                {
+                    //visibleTargets.Add(target);
+                    Damageables.Add(damageable);
+                    Attacke();
+                    return;
+                    //if (AttackCoroutine == null)
+                    //{
+
+                    //    //AttackCoroutine = StartCoroutine(Attack());
+                    //}
+                }
+                else
+                {
+
+                    return;
+                }
+            }
+
+        }
+    }
+
+    public Vector3 DirFromAngle(float angleInDegrees)
+    {
+
+        angleInDegrees += transform.eulerAngles.y;
+
+        return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+    }
+    protected bool DisabledDamageables(IDamageable Damageable)
+    {
+        return Damageable != null && !Damageable.GetTransform().gameObject.activeSelf;
+    }
+
+    public void UpdateBullet(float addedValue) 
+    {
+            StopAllCoroutines();
+        AttackCoroutine = null;
+        AttackDelay -= addedValue;
+        StartCoroutine(FindTargetsWithDelay());
+            
+
+    }
+
+
+    private void LateUpdate()
+    {
+        DrawFieldOfView();
+        //FindVisibleTargets();
+    }
+
+    ///////////////////////////////////**********************************
+    /// <summary>
+    /// 
+    /// 
+    /// </summary>
+
+
+    //void Start()
+    //{
+    //    StartCoroutine("FindTargetsWithDelay", .2f);
+    //}
+
+
+    //IEnumerator FindTargetsWithDelay(float delay)
+    //{
+    //    while (true)
+
+    //    {
+    //        yield return new WaitForSeconds(delay);
+    //        FindVisibleTargets();
+    //    }
+    //}
+
+
+
+
+
+
+
+
+    ////////////////////// view angle 
     void DrawFieldOfView()
     {
         int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
@@ -213,234 +422,5 @@ public class BulletAttackRadius : MonoBehaviour
             pointB = _pointB;
         }
     }
-
-
-
-
-
-
-
-
-
-
-    //void Attacke()
-    //{
-    //    IDamageable closestDamageable = null;
-    //    float closestDistance = float.MaxValue;
-
-        //    if (Damageables.Count > 0)
-        //    {
-        //        Debug.Log("attack");
-        //        for (int i = 0; i < Damageables.Count; i++)
-        //        {
-        //            Transform damageableTransform = Damageables[i].GetTransform();
-        //            float distance = Vector3.Distance(transform.localPosition, damageableTransform.localPosition);
-
-        //            if (distance < closestDistance)
-        //            {
-        //                closestDistance = distance;
-        //                closestDamageable = Damageables[i];
-        //            }
-        //        }
-
-        //        if (closestDamageable != null)
-        //        {
-        //            transform.LookAt(closestDamageable.GetTransform().forward);
-        //            Debug.Log("ee2");
-        //            PoolableObject poolableObject = BulletPool.GetObject();
-        //            if (poolableObject != null)
-        //            {
-        //                bullet = poolableObject.GetComponent<Bullet>();
-
-        //                bullet.transform.position = transform.position;
-        //                //bullet.transform.localRotation = Quaternion.LookRotation(-closestDamageable.GetTransform().forward);
-        //                bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
-        //            }
-        //            //OnAttack?.Invoke(closestDamageable);
-        //            //closestDamageable.TakeDamage(Damage);
-        //        }
-
-        //        closestDamageable = null;
-        //        closestDistance = float.MaxValue;
-
-        //        Damageables.RemoveAll(DisabledDamageables);
-        //    }
-
-        //    AttackCoroutine = null;
-
-
-        //}
-        private void LateUpdate()
-    {
-        DrawFieldOfView();
-    }
-    public IEnumerator Attack()
-    {
-        WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
-
-
-        IDamageable closestDamageable = null;
-        float closestDistance = float.MaxValue;
-
-        while (Damageables.Count > 0)
-        {
-            for (int i = 0; i < Damageables.Count; i++)
-            {
-                Transform damageableTransform = Damageables[i].GetTransform();
-                float distance = Vector3.Distance(transform.position, damageableTransform.position);
-
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestDamageable = Damageables[i];
-                }
-            }
-
-            if (closestDamageable != null)
-            {
-                //transform.LookAt(closestDamageable.GetTransform().position);
-                PoolableObject poolableObject = BulletPool.GetObject();
-                if (poolableObject != null)
-                {
-                    bullet = poolableObject.GetComponent<Bullet>();
-
-                    Vector3 rocketRotation = closestDamageable.GetTransform().position;
-                    rocketRotation.y = 3f;
-
-                    bullet.transform.position = transform.position;
-                    rocket.LookAt(rocketRotation);
-                    bullet.transform.LookAt(closestDamageable.GetTransform().position);
-                    //bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
-                }
-                //OnAttack?.Invoke(closestDamageable);
-                //closestDamageable.TakeDamage(Damage);
-            }
-
-            closestDamageable = null;
-            closestDistance = float.MaxValue;
-
-            yield return Wait;
-
-            Damageables.RemoveAll(DisabledDamageables);
-        }
-
-        AttackCoroutine = null;
-    }
-    void FindVisibleTargets()
-    {
-        Damageables.Clear();
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
-
-        for (int i = 0; i < targetsInViewRadius.Length; i++)
-        {
-            IDamageable damageable = targetsInViewRadius[i].GetComponent<IDamageable>();
-            Transform target = damageable.GetTransform();
-            Vector3 dirToTarget = (target.position - transform.position).normalized;
-            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
-            {
-                float dstToTarget = Vector3.Distance(transform.position, target.position);
-
-                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
-                {
-                    //visibleTargets.Add(target);
-                    Damageables.Add(damageable);
-                    if (AttackCoroutine == null)
-                    {
-                        AttackCoroutine = StartCoroutine(Attack());
-                    }
-                }
-                else
-                {
-                    if (AttackCoroutine != null)
-                        StopCoroutine(AttackCoroutine);
-                    AttackCoroutine = null;
-                    return;
-                }
-            }
-
-        }
-    }
-
-    public Vector3 DirFromAngle(float angleInDegrees)
-    {
-
-        angleInDegrees += transform.eulerAngles.y;
-
-        return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
-    }
-    protected bool DisabledDamageables(IDamageable Damageable)
-    {
-        return Damageable != null && !Damageable.GetTransform().gameObject.activeSelf;
-    }
-
-
-
-
-    //protected virtual void OnTriggerEnter(Collider other)
-    //{
-    //    Debug.Log("damagable"+Damageables.Count);
-    //    IDamageable damageable = other.GetComponent<IDamageable>();
-    //    if (damageable != null)
-    //    {
-    //        Transform target = damageable.GetTransform();
-    //        Vector3 dirToTarget = (target.position - transform.position).normalized;
-    //        if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
-    //        {
-    //            float dstToTarget = Vector3.Distance(transform.position, target.position);
-    //            if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
-    //            {
-    //                Damageables.Add(damageable);
-    //                Debug.Log("name of target : " + target.gameObject.name);
-    //            }
-    //        }
-    //        if (AttackCoroutine == null)
-    //        {
-    //            AttackCoroutine = StartCoroutine(Attack());
-    //        }
-    //    }
-    //}
-
-    //protected virtual void OnTriggerExit(Collider other)
-    //{
-    //    IDamageable damageable = other.GetComponent<IDamageable>();
-    //    if (damageable != null)
-    //    {
-    //        Damageables.Remove(damageable);
-    //        if (Damageables.Count == 0 )
-    //        {
-    //            StopCoroutine(AttackCoroutine);
-    //            AttackCoroutine = null;
-    //        }
-    //    }
-    //}
-
-
-
-
-
-
-
-    ///////////////////////////////////**********************************
-    /// <summary>
-    /// 
-    /// 
-    /// </summary>
-
-
-    //void Start()
-    //{
-    //    StartCoroutine("FindTargetsWithDelay", .2f);
-    //}
-
-
-    //IEnumerator FindTargetsWithDelay(float delay)
-    //{
-    //    while (true)
-
-    //    {
-    //        yield return new WaitForSeconds(delay);
-    //        FindVisibleTargets();
-    //    }
-    //}
 
 }

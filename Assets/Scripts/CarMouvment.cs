@@ -18,6 +18,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
     private float maxHealth;
     public float health = 100;
     public GameObject fire;
+    GameObject firePrefab;
     public float carBody;
     public float attackSpeed;
     public Image healthBar;
@@ -30,14 +31,15 @@ public class CarMouvment : MonoBehaviour, IDamageable
 
     private void Awake()
     {
+        instance = this;
         rb = GetComponent<Rigidbody>();
         myCar = Instantiate(myCars[PlayerPrefs.GetInt("SelectedItem")], transform);
         //myCar.transform.position = myPosCar[PlayerPrefs.GetInt("SelectedItem")];
-        Instantiate(fire, myCar.transform.GetChild(0));
-
+        firePrefab= Instantiate(fire, myCar.transform.GetChild(0));
         SetCarUpgrade();
 
     }
+    
     void SetCarUpgrade()
     {
         int dataIncluded = ShopUI.Instance?.shopData.shopItems.Length ?? 0;
@@ -45,8 +47,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
         if (dataIncluded == 0)
         {
             carBody = 1;
-            maxHealth=health = 100;
-            attackSpeed = 1f;
+            maxHealth = health = 100;
         }
         else
         {
@@ -57,7 +58,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
                 myCar.transform.GetChild(i + 1).gameObject.SetActive(true); 
             }
 
-            health = ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
+           maxHealth=health = ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
             carLevelsData[(ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedHealthLevel)].health; ;
 
             attackSpeed = ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
@@ -68,9 +69,10 @@ public class CarMouvment : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        instance = this;
-        fire.GetComponent<BulletAttackRadius>().AttackDelay = attackSpeed;
-        
+
+        firePrefab.GetComponent<BulletAttackRadius>().AttackDelay = attackSpeed;
+
+        UpgradeHealthBar(health);
     }
 
     public Transform GetTransform()
@@ -121,7 +123,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
         //Debug.DrawRay(transform.position, transform.forward * 3, Color.blue);
         //MoveForce = Vector3.Lerp(MoveForce.normalized, transform.forward, Traction * Time.deltaTime) * MoveForce.magnitude;
 
-        if (rb.velocity.magnitude > 25f)
+        if (rb.velocity.magnitude > 15f)
         {
             canDamage = true;
         }
@@ -144,7 +146,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
                 enemy.Movement.StopAllCoroutines();
                 enemy.GetComponent<NavMeshAgent>().enabled = false;
                 enemy.GetComponent<Rigidbody>().isKinematic = false;
-                enemy.rb.AddForce(50 * direction * rb.velocity.magnitude);
+                enemy.rb.AddForce(15 * direction * rb.velocity.magnitude);
                 enemy.TakeDamage(enemy.Health);
             }
         }
@@ -152,15 +154,19 @@ public class CarMouvment : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         health -= damage / carBody;
-        UpgradeHealthBar();
+        UpgradeHealthBar(health);
     }
-    public void UpgradeHealthBar()
+    public void UpgradeHealthBar(float value)
     {
-        if (health > maxHealth)
+        if (value <= maxHealth)
         {
-            shieldBar.fillAmount = (health % maxHealth) / maxHealth;
+            healthBar.fillAmount = value / maxHealth;
+            shieldBar.fillAmount = 0f;
         }
         else
-        healthBar.fillAmount = health / maxHealth;
+        {
+            healthBar.fillAmount = 1f;
+            shieldBar.fillAmount = (value % maxHealth) / maxHealth;
+        }
     }
 }

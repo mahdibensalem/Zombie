@@ -138,5 +138,5 @@ MonoBehaviour:
   radiusHit: 10
   MaxHits: 25
   MaxDamage: 5
-  MinDamage: 1
+  MinDamage: 3
   ExplosiveForce: 100

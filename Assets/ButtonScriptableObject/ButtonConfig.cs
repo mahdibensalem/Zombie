@@ -51,15 +51,17 @@ public class ButtonConfig : MonoBehaviour
         if (myconfig.action == ButtonScriptableObject.actionMethode.addHealth)
         {
             CarMouvment.instance.health += addedValue;
-            CarMouvment.instance.UpgradeHealthBar();
+            CarMouvment.instance.TakeDamage(1); ;
         }
         else if (myconfig.action == ButtonScriptableObject.actionMethode.addAttackSpeed)
         {
 
-            BulletAttackRadius.Instance.StopCoroutine(BulletAttackRadius.Instance.Attack());
-            BulletAttackRadius.Instance.AttackDelay -= addedValue;
-            BulletAttackRadius.Instance.StartCoroutine(BulletAttackRadius.Instance.Attack());
+            //BulletAttackRadius.Instance.StopCoroutine(BulletAttackRadius.Instance.Attack());
+            //BulletAttackRadius.Instance.atta
+            //BulletAttackRadius.Instance.AttackDelay -= addedValue;
+            //BulletAttackRadius.Instance.StartCoroutine(BulletAttackRadius.Instance.Attack());
 
+            BulletAttackRadius.Instance.UpdateBullet(addedValue);
             ///////////////////////////////////////////////////
         }
         else if (myconfig.action == ButtonScriptableObject.actionMethode.addDamage)
