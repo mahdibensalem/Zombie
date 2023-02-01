@@ -17,10 +17,12 @@ public class CarMouvment : MonoBehaviour, IDamageable
     public Vector3[] myPosCar;
     private float maxHealth;
     public float health = 100;
-    public GameObject fire;
+    public GameObject[] fire;
+    int fireType;
     GameObject firePrefab;
     public float carBody;
     public float attackSpeed;
+    
     public Image healthBar;
     public Image shieldBar;
     //public BulletAttackRadius Fire;
@@ -35,7 +37,6 @@ public class CarMouvment : MonoBehaviour, IDamageable
         rb = GetComponent<Rigidbody>();
         myCar = Instantiate(myCars[PlayerPrefs.GetInt("SelectedItem")], transform);
         //myCar.transform.position = myPosCar[PlayerPrefs.GetInt("SelectedItem")];
-        firePrefab= Instantiate(fire, myCar.transform.GetChild(0));
         SetCarUpgrade();
 
     }
@@ -48,6 +49,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
         {
             carBody = 1;
             maxHealth = health = 100;
+            fireType=1;
         }
         else
         {
@@ -64,7 +66,11 @@ public class CarMouvment : MonoBehaviour, IDamageable
             attackSpeed = ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
             carLevelsData[(ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedAttackSpeedLevel)].attackSpeed; ;
 
+            fireType = ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].
+            carLevelsData[(ShopUI.Instance.shopData.shopItems[PlayerPrefs.GetInt("SelectedItem")].unlockedFireTypeLevel)].fireType; 
+
         }
+        firePrefab = Instantiate(fire[fireType], myCar.transform.GetChild(0));
     }
 
     private void Start()
@@ -146,7 +152,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
                 enemy.Movement.StopAllCoroutines();
                 enemy.GetComponent<NavMeshAgent>().enabled = false;
                 enemy.GetComponent<Rigidbody>().isKinematic = false;
-                enemy.rb.AddForce(15 * direction * rb.velocity.magnitude);
+                enemy.rb.AddForce(5 * direction * rb.velocity.magnitude);
                 enemy.TakeDamage(enemy.Health);
             }
         }

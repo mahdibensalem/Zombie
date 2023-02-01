@@ -19,6 +19,7 @@ namespace ShopUpgradeSystem
         public int unlockedHealthLevel = 0;       //level of Health
         public int unlockedBodyLevel = 0;       //level of Body
         public int unlockedAttackSpeedLevel = 0;       //level of AttackSpeed
+        public int unlockedFireTypeLevel = 0;
     }
 
     //[System.Serializable]
@@ -35,6 +36,8 @@ namespace ShopUpgradeSystem
         public float body;
         public int attackSpeedUnlockCost;
         public float attackSpeed;
+        public int fireTypeUnlockCost;
+        public int fireType;
 
     }
 }

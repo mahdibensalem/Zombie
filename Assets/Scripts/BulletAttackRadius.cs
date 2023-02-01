@@ -75,6 +75,8 @@ public class BulletAttackRadius : MonoBehaviour
     public void AddAngle(int value)
     {
         viewAngle += value;
+        viewAngle = Mathf.Clamp(viewAngle, 0, 360);
+
     }
 
 
@@ -113,8 +115,7 @@ public class BulletAttackRadius : MonoBehaviour
 
             if (closestDamageable != null)
             {
-                transform.LookAt(closestDamageable.GetTransform().forward);
-                Debug.Log("ee2");
+
                 PoolableObject poolableObject = BulletPool.GetObject();
                 if (poolableObject != null)
                 {

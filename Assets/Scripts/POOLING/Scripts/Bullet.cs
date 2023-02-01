@@ -70,7 +70,7 @@ public class Bullet : PoolableObject
                     //if (Hits[i].TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
                     //{
                         float distance = Vector3.Distance(transform.position, Hits[i].transform.position);
-                        Damageables[i].TakeDamage(Mathf.FloorToInt(Mathf.Lerp(MaxDamage, MinDamage, distance / radiusHit)));
+                        Damageables[i].TakeDamage(Mathf.FloorToInt(Mathf.Lerp(Damage, MinDamage, distance / radiusHit)));
                         GetComponent<Rigidbody>().AddExplosionForce(ExplosiveForce, transform.position, radiusHit);
                         Debug.Log($"Would hit {GetComponent<Rigidbody>().name} for {Mathf.FloorToInt(Mathf.Lerp(MaxDamage, MinDamage, distance / radiusHit))}");
 

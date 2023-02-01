@@ -14,10 +14,10 @@ namespace ShopUpgradeSystem
         public ShopData shopData;                 //ref to ShopSaveScriptable asset
         
         public Text unlockBtnText, carNameText,totalCoinsText; //ref to important text components
-        public TextMeshProUGUI upgradeHealthBtnText, upgradeBodyBtnText, upgradeAttackSpeedBtnText;
-        public TextMeshProUGUI HealthlevelText,BodyLevelText, AttackSpeedLevelText;
-        public Button unlockBtn, upgradeHealthBtn, upgradeBodyBtn, upgradeAttackSpeedBtn, nextBtn, previousButton,playButton;   //ref to important Buttons.
-        public Image[] LVLIndexHealthImage, LVLIndexBodyImage, LVLIndexAttackSpeedImage;
+        public TextMeshProUGUI upgradeHealthBtnText, upgradeBodyBtnText, upgradeAttackSpeedBtnText, upgradeFireTypeBtnText;
+        public TextMeshProUGUI HealthlevelText,BodyLevelText, AttackSpeedLevelText, FireTypeLevelText;
+        public Button unlockBtn, upgradeHealthBtn, upgradeBodyBtn, upgradeAttackSpeedBtn, upgradeFireTypeBtn , nextBtn, previousButton,playButton;   //ref to important Buttons.
+        public Image[] LVLIndexHealthImage, LVLIndexBodyImage, LVLIndexAttackSpeedImage, LVLIndexFireTypeImage;
 
         private int currentIndex = 0;                       //index of current item showing in the shop 
         private int selectedIndex;                          //actual selected item index
@@ -48,7 +48,7 @@ namespace ShopUpgradeSystem
             upgradeHealthBtn.onClick.AddListener(() => UpgradeHealthButton());          //add listner to button
             upgradeBodyBtn.onClick.AddListener(() => UpgradeBodyButton());          //add listner to button
             upgradeAttackSpeedBtn.onClick.AddListener(() => UpgradeAttackSpeedButton());          //add listner to button
-            
+            upgradeFireTypeBtn.onClick.AddListener(() => UpgradeFireTypeButton());
             nextBtn.onClick.AddListener(() => NextButton());                //add listner to button
             previousButton.onClick.AddListener(() => PreviousButton());     //add listner to button
             playButton.onClick.AddListener(() => PlayButton());
@@ -67,12 +67,14 @@ namespace ShopUpgradeSystem
             int currentHealthLevel = shopData.shopItems[currentIndex].unlockedHealthLevel;
             int currentBodyLevel = shopData.shopItems[currentIndex].unlockedBodyLevel;
             int currentAttackSpeedLevel = shopData.shopItems[currentIndex].unlockedAttackSpeedLevel;
+            int currentFireTypeLevel = shopData.shopItems[currentIndex].unlockedFireTypeLevel;
 
 
             HealthlevelText.text = "LEVEL "+ (currentHealthLevel+1)/*+ shopData.shopItems[currentIndex].carLevelsData[currentHealthLevel].health*/;  //level start from zero we add 1
             BodyLevelText.text = "LEVEL " + (currentBodyLevel+1)  ;
             AttackSpeedLevelText.text = "LEVEL " + (currentAttackSpeedLevel+1);
-            foreach(Image img in LVLIndexHealthImage)
+            FireTypeLevelText.text = "LEVEL " + (currentFireTypeLevel + 1);
+            foreach (Image img in LVLIndexHealthImage)
             {
                 img.color = Color.white;
             }
@@ -81,6 +83,10 @@ namespace ShopUpgradeSystem
                 img.color = Color.white;
             }
             foreach(Image img in LVLIndexAttackSpeedImage)
+            {
+                img.color = Color.white;
+            }
+            foreach(Image img in LVLIndexFireTypeImage)
             {
                 img.color = Color.white;
             }
@@ -97,6 +103,10 @@ namespace ShopUpgradeSystem
             for (int i=0;i<=currentAttackSpeedLevel; i++)
             {
                 LVLIndexAttackSpeedImage[i].color = Color.red;
+            }
+            for (int i=0;i<= currentFireTypeLevel; i++)
+            {
+                LVLIndexFireTypeImage[i].color = Color.red;
             }
 
         }
@@ -279,6 +289,34 @@ namespace ShopUpgradeSystem
                 saveLoadData.SaveData();
             }
             UpgradeButtonStatus();
+        } 
+        private void UpgradeFireTypeButton()//upgrade button is interactable only if we have any level left to upgrade
+        {
+            //get the next level index
+            int nextLevelIndex = shopData.shopItems[currentIndex].unlockedFireTypeLevel + 1;
+            //we check if we have enough coins
+            if (totalCoins >= shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex].fireTypeUnlockCost)
+            {
+                UpgradeCoins(shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex].fireTypeUnlockCost);         //set the coins text
+                //if yes we increate the unlockedLevel by 1
+                shopData.shopItems[currentIndex].unlockedFireTypeLevel++;
+
+                //we check if are not at max level
+                if (shopData.shopItems[currentIndex].unlockedFireTypeLevel < shopData.shopItems[currentIndex].carLevelsData.Length - 1)
+                {
+                    upgradeFireTypeBtnText.text = 
+                        (shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex + 1].fireTypeUnlockCost / 1000)+"K";
+                }
+                else    //we check if we are at max level
+                {
+                    upgradeFireTypeBtn.interactable = false;            //set upgradeBtn interactable to false
+                    upgradeFireTypeBtnText.text = "Max";    //set the btn text
+                }
+
+                SetCarInfo();
+                saveLoadData.SaveData();
+            }
+            UpgradeButtonStatus();
         }
 
         /// <summary>
@@ -364,6 +402,23 @@ namespace ShopUpgradeSystem
                     upgradeAttackSpeedBtnText.text = "Max";
                 }
 #endregion
+#region Fire Type
+                //if unlockLevel of current item is less than its max level
+                if (shopData.shopItems[currentIndex].unlockedFireTypeLevel < shopData.shopItems[currentIndex].carLevelsData.Length - 1)
+                {
+                    upgradeFireTypeBtn.interactable = true;                     //make upgradeBtn interactable true
+                    int nextLevelIndex = shopData.shopItems[currentIndex].unlockedFireTypeLevel + 1;
+                    //set the next level as value of upgrade button text
+                    upgradeFireTypeBtnText.text = 
+                        (shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex].fireTypeUnlockCost / 1000)+"K";
+                    if (shopData.shopItems[currentIndex].carLevelsData[nextLevelIndex].fireTypeUnlockCost > totalCoins) upgradeFireTypeBtn.interactable = false;
+                }
+                else   //if unlockLevel of current item is equal to max level
+                {
+                    upgradeFireTypeBtn.interactable = false;                    //make upgradeBtn interactable false
+                    upgradeFireTypeBtnText.text = "Max";
+                }
+#endregion
 
 
 
@@ -373,8 +428,9 @@ namespace ShopUpgradeSystem
             {
                 upgradeHealthBtn.interactable = false;
                 upgradeBodyBtn.interactable = false;
-                upgradeAttackSpeedBtn.interactable = false;                        //make upgradeBtn interactable false
-                upgradeHealthBtnText.text = ""; upgradeBodyBtnText.text = ""; upgradeAttackSpeedBtnText.text = "";
+                upgradeAttackSpeedBtn.interactable = false;
+                upgradeFireTypeBtn.interactable = false;         //make upgradeBtn interactable false
+                upgradeHealthBtnText.text = ""; upgradeBodyBtnText.text = ""; upgradeAttackSpeedBtnText.text = ""; upgradeFireTypeBtnText.text = "";
             }
         }
         private void UpgradeCoins(int value)

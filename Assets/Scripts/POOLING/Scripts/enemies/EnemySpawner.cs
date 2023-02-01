@@ -105,6 +105,7 @@ public class EnemySpawner : MonoBehaviour
                 enemy.Movement.Player = Player;
                 enemy.Agent.enabled = true;
                 enemy.Movement.StartChasing();
+                enemy.Start();
             }
             else
             {

@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 149026630}
   - component: {fileID: 149026629}
   m_Layer: 5
-  m_Name: AttackSpeed Item Panel (3)
+  m_Name: FireType Item Panel (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -549,7 +549,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 390, y: -0}
+  m_AnchoredPosition: {x: 390, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &299390212
@@ -655,7 +655,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 200, y: -0}
+  m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &319730022
@@ -1004,7 +1004,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 200, y: -0}
+  m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &502744858
@@ -1080,7 +1080,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: -0}
+  m_AnchoredPosition: {x: 10, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &512049287
@@ -1254,7 +1254,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 390, y: -0}
+  m_AnchoredPosition: {x: 390, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &552155889
@@ -1851,7 +1851,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: -0}
+  m_AnchoredPosition: {x: 10, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &716690107
@@ -2033,21 +2033,28 @@ MonoBehaviour:
         body: 1
         attackSpeedUnlockCost: 5000
         attackSpeed: 1
+        fireTypeUnlockCost: 0
+        fireType: 0
       - helthUnlockCost: 10000
         health: 200
         bodyUnlockCost: 10000
         body: 2
         attackSpeedUnlockCost: 10000
         attackSpeed: 2
+        fireTypeUnlockCost: 0
+        fireType: 0
       - helthUnlockCost: 20000
         health: 350
         bodyUnlockCost: 20000
         body: 3
         attackSpeedUnlockCost: 20000
         attackSpeed: 3
+        fireTypeUnlockCost: 0
+        fireType: 1
       unlockedHealthLevel: 0
       unlockedBodyLevel: 0
       unlockedAttackSpeedLevel: 0
+      unlockedFireTypeLevel: 0
     - carName: Jeep wrangler
       isUnlocked: 0
       unlockCost: 45000
@@ -2058,21 +2065,28 @@ MonoBehaviour:
         body: 1
         attackSpeedUnlockCost: 15
         attackSpeed: 1
+        fireTypeUnlockCost: 0
+        fireType: 0
       - helthUnlockCost: 30000
         health: 69
         bodyUnlockCost: 30000
         body: 2
         attackSpeedUnlockCost: 30000
         attackSpeed: 2
+        fireTypeUnlockCost: 0
+        fireType: 0
       - helthUnlockCost: 60000
         health: 350
         bodyUnlockCost: 60000
         body: 3
         attackSpeedUnlockCost: 60000
         attackSpeed: 3
+        fireTypeUnlockCost: 0
+        fireType: 0
       unlockedHealthLevel: 0
       unlockedBodyLevel: 0
       unlockedAttackSpeedLevel: 0
+      unlockedFireTypeLevel: 0
     - carName: Mustang 67F
       isUnlocked: 0
       unlockCost: 70000
@@ -2083,34 +2097,44 @@ MonoBehaviour:
         body: 40
         attackSpeedUnlockCost: 40000
         attackSpeed: 2
+        fireTypeUnlockCost: 0
+        fireType: 0
       - helthUnlockCost: 70000
         health: 100
         bodyUnlockCost: 70000
         body: 65
         attackSpeedUnlockCost: 70000
         attackSpeed: 0.5
+        fireTypeUnlockCost: 0
+        fireType: 0
       - helthUnlockCost: 98000
         health: 150
         bodyUnlockCost: 98000
         body: 150
         attackSpeedUnlockCost: 98000
         attackSpeed: 0.4
+        fireTypeUnlockCost: 0
+        fireType: 0
       unlockedHealthLevel: 0
       unlockedBodyLevel: 0
       unlockedAttackSpeedLevel: 0
+      unlockedFireTypeLevel: 0
   unlockBtnText: {fileID: 5565326749404100636}
   carNameText: {fileID: 5565326750016182547}
   totalCoinsText: {fileID: 8658658859167784358}
   upgradeHealthBtnText: {fileID: 1017080149}
   upgradeBodyBtnText: {fileID: 1051765047704868449}
   upgradeAttackSpeedBtnText: {fileID: 612662803}
+  upgradeFireTypeBtnText: {fileID: 1112417119}
   HealthlevelText: {fileID: 2038232866}
   BodyLevelText: {fileID: 1056751906261652046}
   AttackSpeedLevelText: {fileID: 1663545678}
+  FireTypeLevelText: {fileID: 1663982750}
   unlockBtn: {fileID: 5565326750293144098}
   upgradeHealthBtn: {fileID: 1400672642}
   upgradeBodyBtn: {fileID: 4125122267463927745}
   upgradeAttackSpeedBtn: {fileID: 1601086459}
+  upgradeFireTypeBtn: {fileID: 2005226208}
   nextBtn: {fileID: 5565326748889362554}
   previousButton: {fileID: 5565326750409717849}
   playButton: {fileID: 676908717}
@@ -2126,6 +2150,10 @@ MonoBehaviour:
   - {fileID: 512049288}
   - {fileID: 834845882}
   - {fileID: 271251454}
+  LVLIndexFireTypeImage:
+  - {fileID: 1321206395}
+  - {fileID: 319730022}
+  - {fileID: 552155889}
 --- !u!1 &834845879
 GameObject:
   m_ObjectHideFlags: 0
@@ -2161,7 +2189,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 200, y: -0}
+  m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &834845881
@@ -3692,7 +3720,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cd56dc674b95cfe45b0165fb00781eda, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a07635cdb7c1a7d4baee2acb76855e3a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3745,7 +3773,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: -0}
+  m_AnchoredPosition: {x: 10, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1321206395
@@ -4056,7 +4084,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 390, y: -0}
+  m_AnchoredPosition: {x: 390, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1516593409
@@ -6202,7 +6230,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: -0}
+  m_AnchoredPosition: {x: 10, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!33 &2301931218193229100
@@ -7026,7 +7054,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 200, y: -0}
+  m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &4375909426135940578
@@ -9393,7 +9421,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 390, y: -0}
+  m_AnchoredPosition: {x: 390, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!33 &8365730202421249951

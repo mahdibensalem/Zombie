@@ -135,8 +135,8 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 128
-  radiusHit: 10
+  radiusHit: 15
   MaxHits: 25
   MaxDamage: 5
-  MinDamage: 3
+  MinDamage: 2
   ExplosiveForce: 100
