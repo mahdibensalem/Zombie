@@ -2049,7 +2049,7 @@ MonoBehaviour:
         body: 3
         attackSpeedUnlockCost: 20000
         attackSpeed: 3
-        fireTypeUnlockCost: 0
+        fireTypeUnlockCost: 10000
         fireType: 1
       unlockedHealthLevel: 0
       unlockedBodyLevel: 0

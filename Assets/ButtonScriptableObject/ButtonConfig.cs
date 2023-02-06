@@ -14,8 +14,6 @@ public class ButtonConfig : MonoBehaviour
     public List<Sprite> images;
     float addedValue;
     int addedValueInt;
-
-
     int imageIndex ;
     private void Awake()
     {
@@ -50,8 +48,8 @@ public class ButtonConfig : MonoBehaviour
 
         if (myconfig.action == ButtonScriptableObject.actionMethode.addHealth)
         {
-            CarMouvment.instance.health += addedValue;
-            CarMouvment.instance.TakeDamage(1); ;
+            //CarMouvment.instance.health += addedValue;
+            CarMouvment.instance.TakeDamage(-((int)addedValue)); ;
         }
         else if (myconfig.action == ButtonScriptableObject.actionMethode.addAttackSpeed)
         {

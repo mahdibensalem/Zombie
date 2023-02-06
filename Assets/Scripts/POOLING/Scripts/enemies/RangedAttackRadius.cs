@@ -9,14 +9,14 @@ public class RangedAttackRadius : AttackRadius
     public Vector3 BulletSpawnOffset = new Vector3(0, 1, 0);
     public LayerMask Mask;
     private ObjectPool BulletPool;
-    [SerializeField]
-    private float SpherecastRadius = 0.1f;
+    float SpherecastRadius = 0.1f;
     private RaycastHit Hit;
     private IDamageable targetDamageable;
     private Bullet bullet;
     private void Start()
     {
-        CreateBulletPool();
+        //CreateBulletPool();
+        SpherecastRadius = Collider.radius;
     }
 
     public void CreateBulletPool()
@@ -42,7 +42,7 @@ public class RangedAttackRadius : AttackRadius
                 {
 
                     targetDamageable = Damageables[0];
-                    OnAttack?.Invoke(Damageables[0]);
+                    OnAttack?.Invoke(targetDamageable);
                     Agent.speed = 0;
                     
                     break;
@@ -89,7 +89,7 @@ public class RangedAttackRadius : AttackRadius
     {
         //Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, 60, targetMask);
         //if (targetsInViewRadius.Length > 0)
-        if (Physics.SphereCast(transform.position , .1f, ((Target.position ) - (transform.position )).normalized, out Hit, 100, Mask))
+        if (Physics.SphereCast(transform.position , .1f, ((Target.position ) - (transform.position )).normalized, out Hit, SpherecastRadius, Mask))
         {
 
 

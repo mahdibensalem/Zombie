@@ -35,7 +35,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
     {
         instance = this;
         rb = GetComponent<Rigidbody>();
-        myCar = Instantiate(myCars[PlayerPrefs.GetInt("SelectedItem")], transform);
+        myCar = Instantiate(myCars[PlayerPrefs.GetInt("SelectedItem")], myPosCar[PlayerPrefs.GetInt("SelectedItem")],Quaternion.identity, transform);
         //myCar.transform.position = myPosCar[PlayerPrefs.GetInt("SelectedItem")];
         SetCarUpgrade();
 
@@ -49,7 +49,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
         {
             carBody = 1;
             maxHealth = health = 100;
-            fireType=1;
+            fireType=0;
         }
         else
         {
@@ -147,7 +147,6 @@ public class CarMouvment : MonoBehaviour, IDamageable
             Vector3 direction = hitPoint - transform.position;
             if (canDamage)
             {
-                Debug.Log("tit");
                 enemy.StopAllCoroutines();
                 enemy.Movement.StopAllCoroutines();
                 enemy.GetComponent<NavMeshAgent>().enabled = false;

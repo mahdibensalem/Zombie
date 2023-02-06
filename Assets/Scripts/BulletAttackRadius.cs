@@ -48,8 +48,8 @@ public class BulletAttackRadius : MonoBehaviour
         viewMesh = new Mesh();
         viewMesh.name = "View Mesh";
         viewMeshFilter.mesh = viewMesh;
-        viewMeshFilter.gameObject.transform.position = Vector3.zero;
-        AttackCoroutine= StartCoroutine(FindTargetsWithDelay());
+        viewMeshFilter.gameObject.transform.position = new Vector3(0,0,0) ;
+        AttackCoroutine = StartCoroutine(FindTargetsWithDelay());
     }
 
     IEnumerator FindTargetsWithDelay()
@@ -132,69 +132,67 @@ public class BulletAttackRadius : MonoBehaviour
                 //closestDamageable.TakeDamage(Damage);
             }
 
-            closestDamageable = null;
-            closestDistance = float.MaxValue;
+            //closestDamageable = null;
+            //closestDistance = float.MaxValue;
 
-            Damageables.RemoveAll(DisabledDamageables);
+            //Damageables.RemoveAll(DisabledDamageables);
         }
-
-        AttackCoroutine = null;
 
 
     }
 
-    public IEnumerator Attack()
-    {
-        //WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
-        
+    //public IEnumerator Attack()
+    //{
+    //    //WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
 
-        IDamageable closestDamageable = null;
-        float closestDistance = float.MaxValue;
 
-        while (Damageables.Count > 0)
-        {
-            for (int i = 0; i < Damageables.Count; i++)
-            {
-                Transform damageableTransform = Damageables[i].GetTransform();
-                float distance = Vector3.Distance(transform.position, damageableTransform.position);
+    //    IDamageable closestDamageable = null;
+    //    float closestDistance = float.MaxValue;
 
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestDamageable = Damageables[i];
-                }
-            }
+    //    while (Damageables.Count > 0)
+    //    {
+    //        for (int i = 0; i < Damageables.Count; i++)
+    //        {
+    //            Transform damageableTransform = Damageables[i].GetTransform();
+    //            float distance = Vector3.Distance(transform.position, damageableTransform.position);
 
-            if (closestDamageable != null)
-            {
-                //transform.LookAt(closestDamageable.GetTransform().position);
-                PoolableObject poolableObject = BulletPool.GetObject();
-                if (poolableObject != null)
-                {
-                    bullet = poolableObject.GetComponent<Bullet>();
+    //            if (distance < closestDistance)
+    //            {
+    //                closestDistance = distance;
+    //                closestDamageable = Damageables[i];
+    //            }
+    //        }
 
-                    Vector3 rocketRotation = closestDamageable.GetTransform().position;
-                    rocketRotation.y = 3f;
+    //        if (closestDamageable != null)
+    //        {
+    //            //transform.LookAt(closestDamageable.GetTransform().position);
+    //            PoolableObject poolableObject = BulletPool.GetObject();
+    //            if (poolableObject != null)
+    //            {
+    //                bullet = poolableObject.GetComponent<Bullet>();
 
-                    bullet.transform.position = transform.position;
-                    rocket.LookAt(rocketRotation);
-                    bullet.transform.LookAt(closestDamageable.GetTransform().position);
-                    //bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
-                }
-                //OnAttack?.Invoke(closestDamageable);
-                //closestDamageable.TakeDamage(Damage);
-            }
+    //                Vector3 rocketRotation = closestDamageable.GetTransform().position;
+    //                rocketRotation.y = 3f;
 
-            closestDamageable = null;
-            closestDistance = float.MaxValue;
+    //                bullet.transform.position = transform.position;
+    //                rocket.LookAt(rocketRotation);
+    //                bullet.transform.LookAt(closestDamageable.GetTransform().position);
+    //                //bullet.Spawn(transform.forward, Damage, closestDamageable.GetTransform());
+    //            }
+    //            //OnAttack?.Invoke(closestDamageable);
+    //            //closestDamageable.TakeDamage(Damage);
+    //        }
 
-            yield return null;
+    //        closestDamageable = null;
+    //        closestDistance = float.MaxValue;
 
-            Damageables.RemoveAll(DisabledDamageables);
-        }
+    //        yield return null;
 
-        AttackCoroutine = null;
-    }
+    //        Damageables.RemoveAll(DisabledDamageables);
+    //    }
+
+    //    AttackCoroutine = null;
+    //}
     void FindVisibleTargets()
     {
         Damageables.Clear();
@@ -212,23 +210,18 @@ public class BulletAttackRadius : MonoBehaviour
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
                 {
                     //visibleTargets.Add(target);
+
                     Damageables.Add(damageable);
-                    Attacke();
-                    return;
                     //if (AttackCoroutine == null)
                     //{
 
                     //    //AttackCoroutine = StartCoroutine(Attack());
                     //}
                 }
-                else
-                {
-
-                    return;
-                }
             }
 
         }
+        Attacke();
     }
 
     public Vector3 DirFromAngle(float angleInDegrees)
@@ -243,13 +236,13 @@ public class BulletAttackRadius : MonoBehaviour
         return Damageable != null && !Damageable.GetTransform().gameObject.activeSelf;
     }
 
-    public void UpdateBullet(float addedValue) 
+    public void UpdateBullet(float addedValue)
     {
-            StopAllCoroutines();
+        StopAllCoroutines();
         AttackCoroutine = null;
         AttackDelay -= addedValue;
         StartCoroutine(FindTargetsWithDelay());
-            
+
 
     }
 

@@ -15,13 +15,14 @@ public class AttackScriptableObject : ScriptableObject
     public float StoppingDistance;
     public void SetupEnemy(Enemy enemy)
     {
-        (enemy.AttackRadius.Collider == null ? enemy.AttackRadius.GetComponent<SphereCollider>() : enemy.AttackRadius.Collider).radius = AttackRadius;
-        enemy.AttackRadius.AttackDelay = AttackDelay;
-        enemy.AttackRadius.Damage = Damage;
-        enemy.Agent.stoppingDistance = StoppingDistance;
+        (
+        enemy.attackRadius.Collider == null ? enemy.attackRadius.GetComponent<SphereCollider>() : enemy.attackRadius.Collider).radius = AttackRadius ;
+        enemy.attackRadius.AttackDelay = AttackDelay ;
+        enemy.attackRadius.Damage = Damage ;
+        enemy.Agent.stoppingDistance = StoppingDistance ;
         if (IsRanged)
         {
-            RangedAttackRadius rangedAttackRadius = enemy.AttackRadius.GetComponent<RangedAttackRadius>();
+            RangedAttackRadius rangedAttackRadius = enemy.attackRadius.GetComponent<RangedAttackRadius>();
             enemy.Agent.stoppingDistance = AttackRadius;
             rangedAttackRadius.BulletPrefab = BulletPrefab;
             rangedAttackRadius.BulletSpawnOffset = BulletSpawnOffset;

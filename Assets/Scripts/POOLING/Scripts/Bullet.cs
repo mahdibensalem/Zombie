@@ -57,12 +57,9 @@ public class Bullet : PoolableObject
 
                 int hits = Physics.OverlapSphereNonAlloc(transform.position, radiusHit, Hits, targetMask);
                 List<IDamageable> Damageables = new List<IDamageable>();
-                Debug.Log($"Would hit " + hits) ;
                 for (int i = 0; i < hits; i++)
                 {
                     Damageables.Add(Hits[i].GetComponent<IDamageable>());
-
-                    Debug.Log(Damageables[i]);
 
                 }
                 for (int i = 0; i < hits; i++)

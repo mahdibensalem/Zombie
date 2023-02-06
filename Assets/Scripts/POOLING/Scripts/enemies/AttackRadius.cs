@@ -17,8 +17,8 @@ public class AttackRadius : MonoBehaviour
     protected virtual void Awake()
     {
         Collider = GetComponent<SphereCollider>();
+        
     }
-
     protected virtual void OnTriggerEnter(Collider other)
     {
         IDamageable damageable = other.GetComponent<IDamageable>();

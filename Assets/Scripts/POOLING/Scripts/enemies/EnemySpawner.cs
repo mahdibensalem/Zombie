@@ -115,7 +115,7 @@ public class EnemySpawner : MonoBehaviour
         else
         {
             return;
-            Debug.LogError($"Unable to fetch enemy of type {SpawnIndex} from object pool. Out of objects?");
+            //Debug.LogError($"Unable to fetch enemy of type {SpawnIndex} from object pool. Out of objects?");
         }
     }
 

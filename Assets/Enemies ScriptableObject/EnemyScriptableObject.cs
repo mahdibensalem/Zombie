@@ -15,9 +15,9 @@ public class EnemyScriptableObject : ScriptableObject
         enemy.GetComponent<CapsuleCollider>().enabled = true;
         enemy.Health = health;
         enemy.Agent.speed = speed;
-        enemy.AttackRadius.Damage = AttackConfiguration.Damage;
+        enemy.attackRadius.Damage = AttackConfiguration.Damage;
         enemy.xp = XP;
-        enemy.AttackRadius.AttackDelay = AttackConfiguration.AttackDelay;
+        enemy.attackRadius.AttackDelay = AttackConfiguration.AttackDelay;
         AttackConfiguration.SetupEnemy(enemy);
     }   
 }

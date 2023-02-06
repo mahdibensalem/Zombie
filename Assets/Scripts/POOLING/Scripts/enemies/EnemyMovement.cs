@@ -47,20 +47,12 @@ public class EnemyMovement : MonoBehaviour
 
         while (Agent.enabled)
         {
+            
             Agent.SetDestination(Player.transform.position);
             yield return Wait;
         }
     }
 
-    private void HandleLinkStart()
-    {
-        Animator.SetTrigger(Jump);
-    }
-
-    private void HandleLinkEnd()
-    {
-        Animator.SetTrigger(Landed);
-    }
 
     //private void Update()
     //{

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsRanged: 1
   Damage: 5
-  AttackRadius: 30
+  AttackRadius: 20
   AttackDelay: 2
   BulletPrefab: {fileID: 8290788551079267382, guid: bea65324d60f49c4d85a783601c26caa,
     type: 3}
@@ -22,3 +22,4 @@ MonoBehaviour:
   LineOfSightLayers:
     serializedVersion: 2
     m_Bits: 256
+  StoppingDistance: 20

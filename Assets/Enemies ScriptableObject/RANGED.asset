@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 615b6a5073a39624eb0ccb63a40098ee, type: 3}
-  m_Name: first enemie
+  m_Name: RANGED
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 4790510530194872899, guid: 1cf327d6935c89748b913925d8face4e, type: 3}
-  health: 1
-  AttackConfiguration: {fileID: 11400000, guid: 7324afee41a9d0043ad8d5758e5d384e,
+  Prefab: {fileID: 4189092693385788035, guid: 780449a0e64be864abf0b0f76daae151, type: 3}
+  health: 2
+  AttackConfiguration: {fileID: 11400000, guid: 58f2ca2b99eeb4840951c86f6477d353,
     type: 2}
-  XP: 0.2
+  XP: 0.1
   speed: 10

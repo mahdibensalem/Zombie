@@ -1,17 +1,18 @@
 ﻿using System.Collections;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 public class Enemy : PoolableObject, IDamageable
 {
     public EnemyMovement Movement;
-    public AttackRadius AttackRadius;
+    public AttackRadius attackRadius;
     public NavMeshAgent Agent;
     public Rigidbody rb;
     public int Health;
     float maxHealth;
     public Image healthBar;
-    public float xp;
+    [NonSerialized] public float xp;
     [SerializeField] Animator animator;
     float attackDelay;
 
@@ -20,14 +21,12 @@ public class Enemy : PoolableObject, IDamageable
 
     private void Awake()
     {
-        AttackRadius.OnAttack += OnAttack;
-        Debug.Log("health = " + Health);
+        attackRadius.OnAttack += OnAttack;
         maxHealth = (float)Health;
 
     }
     public void Start()
     {
-        Debug.Log("health = " + Health);
         maxHealth = (float)Health;
         UpgradeHealthBar(Health);
     }
@@ -40,7 +39,7 @@ public class Enemy : PoolableObject, IDamageable
 
             StopCoroutine(LookCoroutine);
         }
-        Debug.Log("lookat");
+
         LookCoroutine = StartCoroutine(LookAt(Target.GetTransform()));
     }
 
@@ -48,6 +47,8 @@ public class Enemy : PoolableObject, IDamageable
     {
         Quaternion lookRotation = Quaternion.LookRotation(Target.position - transform.position);
         float time = 0;
+        animator.SetFloat("Speed", (Agent.velocity.magnitude) / 10);
+        Debug.Log("Speed= " + Agent.velocity.magnitude);
         if (Health != 0)
         {
             animator.SetTrigger(ATTACK_TRIGGER);
@@ -82,7 +83,7 @@ public class Enemy : PoolableObject, IDamageable
     {
         Health -= Damage;
         UpgradeHealthBar(Health);
-        if (Health <= 0)
+        if (Health <= 0.1f)
         {
             GetComponent<CapsuleCollider>().enabled = false;
 
@@ -93,16 +94,17 @@ public class Enemy : PoolableObject, IDamageable
     {
 
         healthBar.fillAmount = ((float)value) / maxHealth;
-        Debug.Log("healthBar.fillAmount = " + (((float)value)+ " /"+ maxHealth));
 
     }
 
     IEnumerator OnDie()
     {
+        attackRadius.StopAllCoroutines();
         Agent.enabled = false;
         rb.isKinematic = false;
         animator.SetTrigger("Dead");
         progressLVL.Instance.OnFillProgressXP(xp);
+
         yield return new WaitForSeconds(2);
         gameObject.SetActive(false);
         
@@ -112,5 +114,9 @@ public class Enemy : PoolableObject, IDamageable
     {
         return transform;
     }
+    public void Update()
+    {
+        animator.SetFloat("Speed", (Agent.velocity.magnitude) / 10);
 
+    }
 }
