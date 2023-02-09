@@ -22,8 +22,10 @@ public class Bullet : PoolableObject
     protected const string DISABLE_METHOD_NAME = "Disable";
     private void Awake()
     {
+
         RigidBody = GetComponent<Rigidbody>();
         Hits = new Collider[MaxHits];
+        MaxDamage = Damage;
     }
     private void Update()
     {
@@ -47,9 +49,9 @@ public class Bullet : PoolableObject
         IDamageable damageable;
         if (other.TryGetComponent<IDamageable>(out damageable))
         {
-            if (other.CompareTag("Player")) return;
+            if (other.CompareTag("Player")) { damageable.TakeDamage(Damage); }
 
-            if (bulletType == BulletType.Type1) { damageable.TakeDamage(Damage); }
+           else if (bulletType == BulletType.Type1) { damageable.TakeDamage(Damage); }
 
             else if(bulletType == BulletType.Type2)
             {

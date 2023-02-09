@@ -131,3 +131,12 @@ MonoBehaviour:
   RigidBody: {fileID: 5720131266675317761}
   Speed: 80
   Damage: 1
+  bulletType: 0
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 0
+  radiusHit: 0
+  MaxHits: 25
+  MaxDamage: 5
+  MinDamage: 1
+  ExplosiveForce: 0

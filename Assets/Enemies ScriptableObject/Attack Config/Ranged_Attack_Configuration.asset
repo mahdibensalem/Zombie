@@ -15,7 +15,7 @@ MonoBehaviour:
   IsRanged: 1
   Damage: 5
   AttackRadius: 20
-  AttackDelay: 2
+  AttackDelay: 3
   BulletPrefab: {fileID: 8290788551079267382, guid: bea65324d60f49c4d85a783601c26caa,
     type: 3}
   BulletSpawnOffset: {x: 0, y: 0, z: 0}

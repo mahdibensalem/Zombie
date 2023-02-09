@@ -4,7 +4,7 @@
 public class AttackScriptableObject : ScriptableObject
 {
     public bool IsRanged = false;
-    public int Damage = 5;
+    public int Damage ;
     public float AttackRadius = 1.5f;
     public float AttackDelay = 1.5f;
 
@@ -27,7 +27,7 @@ public class AttackScriptableObject : ScriptableObject
             rangedAttackRadius.BulletPrefab = BulletPrefab;
             rangedAttackRadius.BulletSpawnOffset = BulletSpawnOffset;
             rangedAttackRadius.Mask = LineOfSightLayers;
-
+            rangedAttackRadius.BulletPrefab.Damage = Damage;
             rangedAttackRadius.CreateBulletPool();
         }
     }

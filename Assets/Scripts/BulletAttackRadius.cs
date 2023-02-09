@@ -19,7 +19,7 @@ public class BulletAttackRadius : MonoBehaviour
     public MeshFilter viewMeshFilter;
     Mesh viewMesh;
 
-
+    [SerializeField] Vector3 offset;
     public Bullet BulletPrefab;
     public int maxBullet = 5;
 
@@ -126,7 +126,7 @@ public class BulletAttackRadius : MonoBehaviour
 
                     bullet.transform.position = transform.position;
                     rocket.LookAt(rocketRotation);
-                    bullet.transform.LookAt(closestDamageable.GetTransform().position);
+                    bullet.transform.LookAt(closestDamageable.GetTransform().position+offset);
                 }
                 //OnAttack?.Invoke(closestDamageable);
                 //closestDamageable.TakeDamage(Damage);

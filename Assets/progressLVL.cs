@@ -40,20 +40,28 @@ public class progressLVL : MonoBehaviour
     {
         if (updatePanel != null)
         {
-            if (progressXP.fillAmount <= 0.9f)
+            if (progressXP.fillAmount < 0.99f)
             {
                 progressXP.fillAmount += amount / MaxXP;
+                if (progressXP.fillAmount == 1)
+                {
+                    progressXP.fillAmount = 0f;
+                    XpTXT.text = (float.Parse((XpTXT.text)) + 1).ToString();
+
+                    updatePanel.SetActive(true);
+
+                }
 
             }
-            else
-            {
-                progressXP.fillAmount = 0f;
-                XpTXT.text = (float.Parse((XpTXT.text)) + 1).ToString();
+            //else
+            //{
+            //    progressXP.fillAmount = 0f;
+            //    XpTXT.text = (float.Parse((XpTXT.text)) + 1).ToString();
 
-                updatePanel.SetActive(true);
+            //    updatePanel.SetActive(true);
 
 
-            }
+            //}
         }
         else progressXP.fillAmount = 1f;
         if (numberOfWave % 2 == 0)

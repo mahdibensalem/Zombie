@@ -1574,14 +1574,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.5504753, y: 0, z: 0, w: 0.83485144}
-  m_LocalPosition: {x: 0, y: 69.96836, z: -29.989557}
+  m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
+  m_LocalPosition: {x: 0, y: 19.8, z: -29.989557}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 85.33, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 65, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1628,7 +1628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 732114486}
-  smoothSpeed: 0.1
+  smoothSpeed: 0.06
   offset: {x: 0, y: 20, z: -20}
 --- !u!1 &353092109
 GameObject:
@@ -3968,7 +3968,7 @@ MonoBehaviour:
   MoveSpeed: 30
   MaxSpeed: 20
   SteerAngle: 2.3
-  speed: 1
+  speedStop: 2
   myCars:
   - {fileID: 3663886511999839828, guid: e0ea4ca98d2ffff4e80bce49ef9c5ce0, type: 3}
   - {fileID: 5670615864103979694, guid: fc51f83eb75e2254bbb5bac7c4c1a188, type: 3}
@@ -4700,7 +4700,7 @@ GameObject:
   - component: {fileID: 962105572}
   - component: {fileID: 962105571}
   - component: {fileID: 962105570}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4748,9 +4748,9 @@ BoxCollider:
   m_GameObject: {fileID: 962105569}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 8, y: 16, z: 8}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &962105573
 MeshRenderer:
@@ -10888,11 +10888,10 @@ MonoBehaviour:
   MaxXP: 1
   updatePanel: {fileID: 8411894651353202999}
   numberOfWave: 0
-  maxNumberOfWave: 4
-  NumberofZombiesInwave: 0200000003000000
+  maxNumberOfWave: 2
+  NumberofZombiesInwave: 14000000
   PosSpawnCharacter:
   - {fileID: 962105575}
-  - {fileID: 1206627520}
   missionTXT: {fileID: 1746066312}
   character: {fileID: 8152399521103939288, guid: a4d78ac6ea030de48ae32a35f997893c,
     type: 3}

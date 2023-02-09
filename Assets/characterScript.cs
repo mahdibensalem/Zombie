@@ -22,7 +22,7 @@ public class characterScript : MonoBehaviour
             GetComponentInParent<SphereCollider>().enabled = false;
 
             progressLVL.Instance.numberOfWave++;
-            if (progressLVL.Instance.numberOfWave == 4)
+            if (progressLVL.Instance.numberOfWave == progressLVL.Instance.maxNumberOfWave)
             {
                 /// you Win 
                 Time.timeScale = 0;

@@ -12,7 +12,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
     public float SteerAngle = 20;
     Rigidbody rb;
     Vector3 movedir;
-    [SerializeField] float speed;
+    [SerializeField] float speedStop;
     public GameObject[] myCars;
     public Vector3[] myPosCar;
     private float maxHealth;
@@ -105,7 +105,7 @@ public class CarMouvment : MonoBehaviour, IDamageable
         }
         else
         {
-            rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.fixedDeltaTime * speed);
+            rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.fixedDeltaTime*speedStop);
         }
         //transform.rotation = Quaternion.LookRotation(rb.velocity);
         //Debug.Log(transform.forward * ((Mathf.Abs(joystick.Vertical) + Mathf.Abs(joystick.Horizontal)) % 2) * MoveSpeed);

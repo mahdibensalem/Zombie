@@ -13,11 +13,15 @@ public class AttackRadius : MonoBehaviour
     public delegate void AttackEvent(IDamageable Target);
     public AttackEvent OnAttack;
     protected Coroutine AttackCoroutine;
+    protected Animator anim;
+
+    public ObjectPool BulletPool;
 
     protected virtual void Awake()
     {
         Collider = GetComponent<SphereCollider>();
-        
+        anim = GetComponentInParent<Animator>();
+
     }
     protected virtual void OnTriggerEnter(Collider other)
     {
@@ -51,7 +55,8 @@ public class AttackRadius : MonoBehaviour
         WaitForSeconds Wait = new WaitForSeconds(AttackDelay);
 
         //yield return Wait;
-        //GetComponentInParent<Animator>().SetTrigger("Attack");
+        //GetComponentInParent<Animator>()
+        //anim.SetTrigger("Attack");
         IDamageable closestDamageable = null;
         float closestDistance = float.MaxValue;
 

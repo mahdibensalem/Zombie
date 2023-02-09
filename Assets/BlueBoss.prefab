@@ -2164,7 +2164,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 0
-  m_Height: 3
+  m_Height: 5
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -2184,119 +2184,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: '
-
-    Transform ''f_index_03_L'' has been deleted
-
-    Transform
-    ''f_index_02_L'' has been deleted
-
-    Transform ''f_index_01_L'' has been deleted
-
-    Transform
-    ''thumb_03_L'' has been deleted
-
-    Transform ''thumb_02_L'' has been deleted
-
-    Transform
-    ''thumb_01_L'' has been deleted
-
-    Transform ''palm_01_L'' has been deleted
-
-    Transform
-    ''f_pinky_03_L'' has been deleted
-
-    Transform ''f_pinky_02_L'' has been deleted
-
-    Transform
-    ''f_pinky_01_L'' has been deleted
-
-    Transform ''palm_04_L'' has been deleted
-
-    Transform
-    ''hand_L'' has been deleted
-
-    Transform ''forearm_L'' has been deleted
-
-    Transform
-    ''upper_arm_L'' has been deleted
-
-    Transform ''shoulder_L'' has been deleted
-
-    Transform
-    ''f_index_03_R'' has been deleted
-
-    Transform ''f_index_02_R'' has been deleted
-
-    Transform
-    ''f_index_01_R'' has been deleted
-
-    Transform ''thumb_03_R'' has been deleted
-
-    Transform
-    ''thumb_02_R'' has been deleted
-
-    Transform ''thumb_01_R'' has been deleted
-
-    Transform
-    ''palm_01_R'' has been deleted
-
-    Transform ''f_pinky_03_R'' has been deleted
-
-    Transform
-    ''f_pinky_02_R'' has been deleted
-
-    Transform ''f_pinky_01_R'' has been deleted
-
-    Transform
-    ''palm_04_R'' has been deleted
-
-    Transform ''hand_R'' has been deleted
-
-    Transform
-    ''forearm_R'' has been deleted
-
-    Transform ''upper_arm_R'' has been deleted
-
-    Transform
-    ''shoulder_R'' has been deleted
-
-    Transform ''spine_006'' has been deleted
-
-    Transform
-    ''spine_005'' has been deleted
-
-    Transform ''spine_004'' has been deleted
-
-    Transform
-    ''spine_003'' has been deleted
-
-    Transform ''spine_002'' has been deleted
-
-    Transform
-    ''spine_001'' has been deleted
-
-    Transform ''toe_L'' has been deleted
-
-    Transform
-    ''foot_L'' has been deleted
-
-    Transform ''shin_L'' has been deleted
-
-    Transform
-    ''thigh_L'' has been deleted
-
-    Transform ''toe_R'' has been deleted
-
-    Transform
-    ''foot_R'' has been deleted
-
-    Transform ''shin_R'' has been deleted
-
-    Transform
-    ''thigh_R'' has been deleted
-
-    Transform ''spine.004'' has been deleted'
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -2310,10 +2198,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.33
-  m_Height: 1
+  m_Radius: 2
+  m_Height: 6
   m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!54 &4189092693385788032
 Rigidbody:
   m_ObjectHideFlags: 0

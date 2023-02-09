@@ -47,12 +47,6 @@ public class Enemy : PoolableObject, IDamageable
     {
         Quaternion lookRotation = Quaternion.LookRotation(Target.position - transform.position);
         float time = 0;
-        animator.SetFloat("Speed", (Agent.velocity.magnitude) / 10);
-        Debug.Log("Speed= " + Agent.velocity.magnitude);
-        if (Health != 0)
-        {
-            animator.SetTrigger(ATTACK_TRIGGER);
-        }
         while (time < attackDelay)
         {
 
@@ -63,7 +57,19 @@ public class Enemy : PoolableObject, IDamageable
         transform.rotation = lookRotation;
     }
 
+    public void attak()
+    {
+        PoolableObject poolableObject = attackRadius.BulletPool.GetObject();
+        Debug.Log("null1");
+        var  bullet = poolableObject.GetComponent<Bullet>();
+        if (bullet != null)
+        {
+            Debug.Log("dqsds");
+            bullet.transform.localPosition = gameObject.transform.position;
+            bullet.transform.rotation = Agent.transform.rotation;
+        }
 
+    }
 
     public override void OnDisable()
     {

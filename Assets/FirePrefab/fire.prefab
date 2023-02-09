@@ -104,6 +104,7 @@ MonoBehaviour:
   edgeResolveIterations: 10
   edgeDstThreshold: 0.5
   viewMeshFilter: {fileID: 1136072287395902148}
+  offset: {x: 0, y: 1, z: 0}
   BulletPrefab: {fileID: 8835752354225473289, guid: 51294970d20a9024d9ae3c4c96ceed90,
     type: 3}
   maxBullet: 15

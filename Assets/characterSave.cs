@@ -9,6 +9,20 @@ public class characterSave : MonoBehaviour
     public bool canReachCar = false;
     public LayerMask enemyMask;
     public GameObject arrow;
+
+
+
+
+
+
+    Vector3 targetPosition;
+    RectTransform PointerArrow;
+
+    private void Awake()
+    {
+        
+    }
+
     private void Start()
     {
         GameObject mycharacter = Instantiate(character, transform);
@@ -19,21 +33,28 @@ public class characterSave : MonoBehaviour
     private void Update()
     {
 
+        ///////////////////////////////////
+
+        //Transform carPos = CarMouvment.instance.GetTransform();
+        //var forward = carPos.forward;
+        //Vector3 direction = (transform.position - carPos.position);
+        ////float angle = Vector3.Angle(direction, carPos.position);
+        //float angle = Mathf.Atan2(-direction.x, direction.z)*Mathf.Rad2Deg;
+
+        ////Debug.Log("angle: " + angle);
+        //arrow.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
 
-        Transform carPos = CarMouvment.instance.GetTransform();
-        var forward = carPos.forward;
-        Vector3 direction = (transform.position - carPos.position);
-        //float angle = Vector3.Angle(direction, carPos.position);
-        float angle = Mathf.Atan2(-direction.x, direction.z)*Mathf.Rad2Deg;
+        //////////////////////////////////
 
-        //Debug.Log("angle: " + angle);
-        arrow.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-
-
-
-
+        Vector3 toPosition = targetPosition;
+        Vector3 fromPosition = Camera.main.transform.position;
+        fromPosition.z = 0f;
+        Vector3 dir = (toPosition - fromPosition).normalized;
+        float angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg) % 360;
+        PointerArrow.localEulerAngles = new Vector3(0, 0, angle);
+        Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(targetPosition);
+        bool isOffScreen= targetPositionScreenPoint.x<=0 || targetPositionScreenPoint.x >= Screen.width|| targetPositionScreenPoint.y <= 0 || targetPositionScreenPoint.y >= Screen.height;
 
 
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, enemyMask); 
